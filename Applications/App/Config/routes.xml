@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+    <route url="/home" module="Afficher" action="home"/>
+
+    <route url="/courrier/mes_creations" module="Courrier" action="creations"/>
+    <route url="/courrier/departs" module="Courrier" action="departs"/>
+    <route url="/courrier/receptions" module="Courrier" action="receptions"/>
+    <route url="/courrier/receptions/add" module="Courrier" action="addReceptions"/>
+
+    <route url="/courrier/departs/view/([0-9]+)" module="Courrier" vars="id" action="view"/>
+    <route url="/courrier/departs/reference/([0-9]+)/([0-9]+)" module="Afficher" vars="numero,typecourrier" action="home"/>
+
+
+
+    <route url="/logout" module="Connexion" action="logout"/>
+    <route url="/Profile" module="Connexion" action ="Profile"/>
+    <route url="/CheckPassword" module="Connexion" action="CheckPassword"/>
+    <route url="/NewPassword" module="Connexion" action="NewPassword"/>
+    <route url="/ValidPassword" module="Connexion" action="ValidPassword"/>
+    <route url="/admin/utilisateurs/liste" module="Connexion" action="Pannel"/>
+    <route url="/addUsers" module="Connexion" action="addUsers"/>
+    <route url="/deleteUsers/([0-9]+)" module="Connexion" vars="id" action="deleteusers"/>
+    <route url="/editUsers/([0-9]+)" module="Connexion" vars="id" action="editUsers"/>
+    <route url="/updateUsers" module="Connexion" action="updateUsers"/>
+</routes>
