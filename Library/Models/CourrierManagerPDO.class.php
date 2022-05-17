@@ -152,4 +152,38 @@ class CourrierManagerPDO extends \Library\Models\CourrierManager
         $displayReferences = $requeteReferences->fetchAll();
         return $displayReferences;
     }
+
+    public function editCourrierArrive()
+    {
+        $requete  = $this->dao->prepare("UPDATE TbleArrive SET enterprise=:enterprise,object=:object,date_arrivee=:date_arrivee,RefUsers=:RefUsers WHERE RefArrive=:RefArrive");
+        $requete->bindValue(':enterprise', $_POST['enterprise'], \PDO::PARAM_STR);
+        $requete->bindValue(':object', $_POST['object'], \PDO::PARAM_STR);
+        $requete->bindValue(':date_arrivee', $_POST['date_arrivee'], \PDO::PARAM_STR);
+        $requete->bindValue(':RefUsers', $_SESSION['RefUsers'], \PDO::PARAM_INT);
+        $requete->bindValue(':RefArrive', $_POST['RefArrive'], \PDO::PARAM_INT);
+        $requete->execute();
+    }
+
+    public function deleteCourrierArrive($id)
+    {
+        $requete = $this->dao->prepare("DELETE FROM TbleArrive WHERE RefArrive=:RefArrive");
+        $requete->bindValue(':RefArrive', $id, \PDO::PARAM_INT);
+        $requete->execute();
+    }
+
+    public function editCourrierDeparts()
+    {
+        $requete  = $this->dao->prepare("UPDATE TbleDepart SET libele=:libele,RefUsers=:RefUsers WHERE RefCourrier=:RefCourrier");
+        $requete->bindValue(':libele', $_POST['libele'], \PDO::PARAM_STR);
+        $requete->bindValue(':RefUsers', $_SESSION['RefUsers'], \PDO::PARAM_INT);
+        $requete->bindValue(':RefCourrier', $_POST['RefCourrier'], \PDO::PARAM_INT);
+        $requete->execute();
+    }
+
+    public function deleteCourrierDeparts($id)
+    {
+        $requete = $this->dao->prepare("DELETE FROM TbleDepart WHERE RefCourrier=:RefCourrier");
+        $requete->bindValue(':RefCourrier', $id, \PDO::PARAM_INT);
+        $requete->execute();
+    }
 }

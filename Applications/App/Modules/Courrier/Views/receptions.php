@@ -18,8 +18,12 @@
                             <th>Objet</th>
                             <th>Emetteur</th>
                             <th>Date</th>
+                            <?php if (in_array(1, $permission)) { ?>
                             <th>File</th>
+                            <?php } ?>
+                            <?php if (in_array(2, $permission)) { ?>
                             <th>Action</th>
+                            <?php } ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,12 +36,17 @@
                             </td>
                             <td> <?= date("d/m/Y", strtotime($value['date_arrivee']));  ?>
                             </td>
+                            <?php if (in_array(1, $permission)) { ?>
+
                             <td> <a <?php if (!empty($value['verify'])) { ?>
                                     href="/documents/<?= $value['FileArrive']; ?>" target="_blank"
                                     class="btn btn-primary" <?php } else { ?>
                                     class="btn btn-warning btn-block waves-effect waves-light" data-bs-toggle="modal"
                                     data-bs-target="#composemodal-<?= $value['RefArrive']; ?>" <?php } ?>>
                                     <i class="fa fa-file"></i><a /></td>
+                            <?php } ?>
+                            <?php if (in_array(2, $permission)) { ?>
+
                             <td class="td-actions">
                                 <a href="/courrier/receptions/update/<?= $value['RefArrive']; ?>"
                                     class="btn btn-success waves-effect waves-light"><i class="fa fa-edit"> </i></a>
@@ -46,7 +55,7 @@
                                     onclick="return confirm('Voulez-vous vraiment supprimer cet élément ?');"><i
                                         class="fa fa-trash-alt"> </i></a>
                             </td>
-
+                            <?php } ?>
 
                             <!-- Modal -->
                             <div class="modal fade" id="composemodal-<?= $value['RefArrive']; ?>" tabindex="-1"

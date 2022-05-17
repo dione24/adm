@@ -78,16 +78,16 @@
 
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle arrow-none" href="/paiement" id="topnav-dashboard"
-                                    role="button">
-                                    <i class="bx bx-money"></i><span key="t-dashboards">Project</span>
+                                <a class="nav-link dropdown-toggle arrow-none" href="/demande/index"
+                                    id="topnav-dashboard" role="button">
+                                    <i class="fas fa-question-circle"></i><span key="t-dashboards"> Demandes</span>
                                 </a>
                             </li>
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle arrow-none" href="/paiement" id="topnav-dashboard"
                                     role="button">
-                                    <i class="bx bx-money"></i><span key="t-dashboards">Chrono</span>
+                                    <i class="bx bx-money"></i><span key="t-dashboards">Facturations</span>
                                 </a>
                             </li>
 
@@ -161,6 +161,7 @@
     <script>
     $(document).ready(function() {
         $('.summernote').summernote();
+        $('#summernote').summernote();
     });
     </script>
 

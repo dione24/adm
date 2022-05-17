@@ -6,9 +6,17 @@
     <route url="/courrier/departs" module="Courrier" action="departs"/>
     <route url="/courrier/receptions" module="Courrier" action="receptions"/>
     <route url="/courrier/receptions/add" module="Courrier" action="addReceptions"/>
-
+    <route url="/courrier/receptions/update/([0-9]+)" module="Courrier" vars="id" action="editReceptions"/>
+    <route url="/courrier/receptions/delete/([0-9]+)" module="Courrier" vars="id" action="deleteReceptions"/>
     <route url="/courrier/departs/view/([0-9]+)" module="Courrier" vars="id" action="view"/>
     <route url="/courrier/departs/reference/([0-9]+)/([0-9]+)" module="Afficher" vars="numero,typecourrier" action="home"/>
+    <route url="/courrier/departs/delete/([0-9]+)" module="Courrier" vars="id" action="deleteDeparts"/>
+    <route url="/courrier/departs/update/([0-9]+)" module="Courrier" vars="id" action="editDeparts"/>
+
+
+    <route url="/demande/index" module="Demande" action="index" />
+    <route url="/demande/display/([0-9]+)" module="Demande" vars="is" action="display"/>
+
 
 
 

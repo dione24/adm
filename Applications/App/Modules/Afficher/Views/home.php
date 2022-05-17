@@ -30,13 +30,39 @@
                         </a>
                     </div>
                     <div class="col-xl-6">
-                        <a href="/courrier/receptions/add class=" text-muted">
+                        <a href="/courrier/receptions/add" class=" text-muted">
                             <div class="text-center">
                                 <i class="mdi mdi-folder-outline h1"></i>
                                 <p class="mt-2 mb-0">Reception</p>
                             </div>
                         </a>
                     </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-6">Quick Access </h4>
+                <div class="row">
+                    <div class="col-xl-6">
+                        <a href="/demande/index" class="text-muted">
+                            <div class="text-center">
+                                <i class="fas fa-question-circle h1"></i>
+                                <p class="mt-2 mb-0">Demande</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xl-6">
+                        <a href="/facturations/add" class=" text-muted">
+                            <div class="text-center">
+                                <i class="fas fa-money h1"></i>
+                                <p class="mt-2 mb-0">Facturations</p>
+                            </div>
+                        </a>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -64,7 +90,7 @@
                 <div class="card-body">
                     <h4 class="card-title mb-4"> Mes References </h4>
                     <div class="table-responsive">
-                        <table class="table align-middle table-nowrap mb-0">
+                        <table id="dataTable" class="table align-middle table-nowrap mb-0">
                             <thead class="table-light">
                                 <tr>
                                     <th class="align-middle">Reference</th>
@@ -164,7 +190,7 @@
                                 <?php } ?>
                             </select>
                             <label for="message-text" class="col-form-label">Objet:</label>
-                            <textarea name="libele" id="summernote" class="summernote" required></textarea>
+                            <textarea name="libele" id="summernote" required></textarea>
 
                         </div>
                     </div>
