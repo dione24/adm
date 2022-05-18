@@ -37,9 +37,8 @@
                             <td> <?= date("d/m/Y", strtotime($value['date_arrivee']));  ?>
                             </td>
                             <?php if (in_array(1, $permission)) { ?>
-
                             <td> <a <?php if (!empty($value['verify'])) { ?>
-                                    href="/documents/<?= $value['FileArrive']; ?>" target="_blank"
+                                    href="/documents/<?= $value['FileArrive']; ?> " target="_blank"
                                     class="btn btn-primary" <?php } else { ?>
                                     class="btn btn-warning btn-block waves-effect waves-light" data-bs-toggle="modal"
                                     data-bs-target="#composemodal-<?= $value['RefArrive']; ?>" <?php } ?>>
@@ -67,7 +66,7 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
-                                        <form method="POST">
+                                        <form method="POST" action="/uploadfile" enctype="multipart/form-data">
                                             <div class="modal-body">
                                                 <div>
                                                     <input type="hidden" value="<?= $value['RefArrive']; ?>"

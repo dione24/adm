@@ -15,7 +15,9 @@
 
 
     <route url="/demande/index" module="Demande" action="index" />
-    <route url="/demande/display/([0-9]+)" module="Demande" vars="is" action="display"/>
+    <route url="/demande/display/([0-9]+)" module="Demande" vars="id" action="display"/>
+    <route url="/uploadfile" module="Courrier" action="uploadFile" />
+    <route url="/file_view/([0-9]+)/([A-Z])" module="Courrier" vars="id,name" action="file_view" />
 
 
 

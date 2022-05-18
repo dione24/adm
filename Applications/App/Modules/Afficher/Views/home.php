@@ -18,13 +18,13 @@
 
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-6">Quick Access </h4>
+                <h4 class="card-title mb-6">Accès rapide
+                </h4>
                 <div class="row">
                     <div class="col-xl-6">
-                        <a href="" type="button" class="text-muted" data-bs-toggle="modal"
-                            data-bs-target="#newreference">
+                        <a class="text-muted" data-bs-toggle="modal" data-bs-target="#newreference">
                             <div class="text-center">
-                                <i class="fas fa-registered h1"></i>
+                                <i class="fas fa-chevron-up h1"></i>
                                 <p class="mt-2 mb-0">Reference </p>
                             </div>
                         </a>
@@ -44,20 +44,19 @@
 
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-6">Quick Access </h4>
                 <div class="row">
                     <div class="col-xl-6">
                         <a href="/demande/index" class="text-muted">
                             <div class="text-center">
                                 <i class="fas fa-question-circle h1"></i>
-                                <p class="mt-2 mb-0">Demande</p>
+                                <p class="mt-2 mb-0">Demandes</p>
                             </div>
                         </a>
                     </div>
                     <div class="col-xl-6">
                         <a href="/facturations/add" class=" text-muted">
                             <div class="text-center">
-                                <i class="fas fa-money h1"></i>
+                                <i class="fas fa-money-bill h1"></i>
                                 <p class="mt-2 mb-0">Facturations</p>
                             </div>
                         </a>
@@ -67,7 +66,6 @@
             </div>
         </div>
 
-
     </div>
     <div class="col-xl-8">
         <?php if (isset($_GET['numero']) && isset($_GET['typecourrier'])) { ?>
@@ -76,11 +74,14 @@
                 <div class="row">
                     <div class="alert alert-success" role="alert">
                         <h5 class="text-center">
+                            <p hidden id="p1">
+                                <?= $displayNumero['numero_courrier']; ?>/<?= $displayNumero['shortName']; ?>-<?= date('Y', strtotime($displayNumero['date_sortie'])) ?>-MLC
+                            </p>
                             La Référence est :
                             <strong><?= $displayNumero['numero_courrier']; ?>/<?= $displayNumero['shortName']; ?>-<?= date('Y', strtotime($displayNumero['date_sortie'])) ?>-MLC</strong>
-                            !
+                            <button class="btn btn-outline-success" onclick="copyToClipboard('p1')"><i
+                                    class="fas fa-copy"> Copy</i></button>
                         </h5>
-                        <h5 class="text-center"><strong>À bientôt</strong></h5>
                     </div>
 
                 </div>
@@ -106,6 +107,7 @@
                                         <h6 class="font-weight-normal mb-0">
                                             <?= $value['numero_courrier']; ?>/<?= $value['shortName']; ?>-<?= date('Y', strtotime($value['date_sortie'])) ?>-MLC
                                         </h6>
+
                                     </td>
                                     <td> <?php if (strlen($value['libele']) > 30) { ?> <a
                                             href="/courrier/departs/view/<?= $value['RefCourrier']; ?>"> <i
@@ -138,12 +140,13 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
-                                            <form method="POST">
+                                            <form method="POST" action="/uploadfile" enctype="multipart/form-data">
                                                 <div class="modal-body">
                                                     <div>
                                                         <input type="hidden" value="<?= $value['RefCourrier']; ?>"
                                                             name="RefCourrier">
                                                         <input type="hidden" value="1" name="Type">
+                                                        <input type="hidden" value="1" name="link">
                                                         <input type="file" name="Courrier_File" class="form-control"
                                                             required="" />
 
@@ -190,7 +193,7 @@
                                 <?php } ?>
                             </select>
                             <label for="message-text" class="col-form-label">Objet:</label>
-                            <textarea name="libele" id="summernote" required></textarea>
+                            <textarea name="libele" class="form-control" rows="3" required></textarea>
 
                         </div>
                     </div>

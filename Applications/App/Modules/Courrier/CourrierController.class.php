@@ -11,9 +11,6 @@ class CourrierController extends \Library\BackController
         $receptions = $this->managers->getManagerOf('Courrier')->getListeReceptions();
         $this->page->addVar("receptions", $receptions);
 
-        if ($request->method() == 'POST' && $request->postData('Courrier_File')) {
-            $this->managers->getManagerOf('Courrier')->addFile();
-        }
 
         $permissions = array();
         $AllPermissions = $this->managers->getManagerOf('Users')->UserPermission();
@@ -108,5 +105,30 @@ class CourrierController extends \Library\BackController
         $_SESSION['message']['type'] = 'success';
         $_SESSION['message']['text'] = 'Opération effectuée.';
         $this->app()->httpResponse()->redirect('/courrier/departs');
+    }
+
+    public function executeUploadFile(\Library\HTTPRequest $request)
+
+    {
+        $this->managers->getManagerOf("Courrier")->addFile();
+
+        $_SESSION['message']['number'] = 2;
+        $_SESSION['message']['type'] = 'success';
+        $_SESSION['message']['text'] = 'Opération effectuée.';
+        if ($request->postData('Type') == 1) {
+            if ($request->postData('link') == 1) {
+                $this->app()->httpResponse()->redirect('/home');
+            } else {
+                $this->app()->httpResponse()->redirect('/courrier/departs');
+            }
+        } else {
+            $this->app()->httpResponse()->redirect('/courrier/receptions');
+        }
+    }
+    public function executeFile_view(\Library\HTTPRequest $request)
+    {
+        $this->page->addVar("titles", "Voir un fichier"); // Titre de la page
+
+
     }
 }

@@ -150,6 +150,10 @@ class CourrierManagerPDO extends \Library\Models\CourrierManager
         $requeteReferences->bindValue(':RefUsers', $_SESSION['RefUsers'], \PDO::PARAM_INT);
         $requeteReferences->execute();
         $displayReferences = $requeteReferences->fetchAll();
+        foreach ($displayReferences as $key => $value) {
+            $displayReferences[$key]['verify'] = $this->VerifyFile(1, $value['RefCourrier']);
+        }
+
         return $displayReferences;
     }
 
@@ -185,5 +189,41 @@ class CourrierManagerPDO extends \Library\Models\CourrierManager
         $requete = $this->dao->prepare("DELETE FROM TbleDepart WHERE RefCourrier=:RefCourrier");
         $requete->bindValue(':RefCourrier', $id, \PDO::PARAM_INT);
         $requete->execute();
+    }
+
+    public function addFile()
+    {
+        if (!empty($_FILES['Courrier_File'])) {
+            $basename = "";
+            if (isset($_FILES['Courrier_File']) && $_FILES['Courrier_File']['error'] == 0) {
+                if ($_FILES['Courrier_File']['size'] <= 100000000) {
+                    $type =  array('docx', 'pdf', 'doc', 'jpg', 'png', 'jpeg', 'gif');
+                    $infofichier = pathinfo($_FILES['Courrier_File']['name']);
+                    $extension_upload = $infofichier['extension'];
+                    $tmp = explode('.', $_FILES['Courrier_File']['name']);
+                    $new_file_name = round(microtime(true)) . '.' . end($tmp);
+
+                    if (in_array($extension_upload, $type)) {
+                        $basename  = basename($_FILES['Courrier_File']['name']);
+                        move_uploaded_file($_FILES['Courrier_File']['tmp_name'], '../Web/documents/' . $new_file_name);
+                    } else {
+                        header("location : /home");
+                        $_SESSION['flash']['danger'] = "La taille du fichier ou le format du fichier n'est pas prise en compte ! ";
+                    }
+                }
+            }
+
+            if ($_POST['Type'] == 2) {
+                $requeteAddFile = $this->dao->prepare('UPDATE TbleArrive SET  FileArrive=:FileArrive WHERE RefArrive=:RefArrive');
+                $requeteAddFile->bindValue(':FileArrive', $new_file_name, \PDO::PARAM_STR);
+                $requeteAddFile->bindValue(':RefArrive', $_POST['RefArrive'], \PDO::PARAM_INT);
+                $requeteAddFile->execute();
+            } else {
+                $requeteAddFile = $this->dao->prepare('UPDATE TbleDepart SET  FileDepart=:FileDepart WHERE RefCourrier=:RefCourrier');
+                $requeteAddFile->bindValue(':FileDepart', $new_file_name, \PDO::PARAM_STR);
+                $requeteAddFile->bindValue(':RefCourrier', $_POST['RefCourrier'], \PDO::PARAM_INT);
+                $requeteAddFile->execute();
+            }
+        }
     }
 }
