@@ -182,33 +182,18 @@
     </script>
     <script>
     function copyToClipboard(elementId) {
-
-        // Create a "hidden" input
         var aux = document.createElement("input");
-
-        // Assign it the value of the specified element
         aux.setAttribute("value", document.getElementById(elementId).innerHTML);
-
-        // Append it to the body
         document.body.appendChild(aux);
-
-        // Highlight its content
         aux.select();
-
-        // Copy the highlighted text
         document.execCommand("copy");
-
-        // Remove it from the body
         document.body.removeChild(aux);
-
     }
     </script>
 
     <!-- apexcharts -->
     <script src="/libs/apexcharts/apexcharts.min.js"></script>
-
     <script src="/js/pages/dashboard.init.js"></script>
-
     <!-- Required datatable js -->
     <script src="/libs/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -221,11 +206,9 @@
     <script src="/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
     <script src="/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
     <script src="/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
-
     <!-- Responsive examples -->
     <script src="/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
-
     <!-- Datatable init js -->
     <script src="/js/pages/datatables.init.js"></script>
 
