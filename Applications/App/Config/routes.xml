@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <routes>
     <route url="/home" module="Afficher" action="home"/>
+    <route url="/" module="Afficher" action="home"/>
+
 
     <route url="/courrier/mes_creations" module="Courrier" action="creations"/>
     <route url="/courrier/departs" module="Courrier" action="departs"/>
@@ -16,6 +18,16 @@
 
     <route url="/demande/index" module="Demande" action="index" />
     <route url="/demande/display/([0-9]+)" module="Demande" vars="id" action="display"/>
+    <route url="/demande/addObservation" module="Demande" action="addObservation"/>
+    <route url="/demande/uploadfile" module="Demande" action="uploadfile"/>
+    <route url="/demande/update/([0-9]+)" module="Demande" vars="id" action="update"/>
+    <route url="/demande/delete/([0-9]+)" module="Demande" vars="id" action="delete"/>
+
+    <route url="/demande/approv/([0-9]+)/([0-9]+)" module="Demande" vars="id,statut" action="approv"/>
+    <route url="/demande/cancel/([0-9]+)/([0-9]+)" module="Demande" vars="id,statut" action="cancel"/>
+
+
+
     <route url="/uploadfile" module="Courrier" action="uploadFile" />
     <route url="/file_view/([0-9]+)/([A-Z])" module="Courrier" vars="id,name" action="file_view" />
 

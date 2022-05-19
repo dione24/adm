@@ -18,11 +18,105 @@ class DemandeController extends \Library\BackController
         }
         $mesdemandes = $this->managers->getManagerOf("Demande")->getMesDemandes();
         $this->page->addVar("mesdemandes", $mesdemandes);
+
+        $mesvalidation =  $this->managers->getManagerOf("Demande")->getMesValidations();
+
+        foreach ($mesvalidation as $key => $validations) {
+            $mesvalidation[$key]['alldemande'] = $this->managers->getManagerOf("Demande")->getDemande($validations['name_approv']);
+        }
+
+
+        $this->page->addVar("mesvalidation", $mesvalidation);
     }
 
     public function executeDisplay(\Library\HTTPRequest $request)
     {
         $this->page->addVar("titles", "Details de la demande "); // Titre de la page
         $demande =  $this->managers->getManagerOf("Demande")->getSingleDemande($request->getData('id'));
+        $this->page->addVar("demande", $demande);
+        $infoDemandeur = $this->managers->getManagerOf("Demande")->getEmployeInformation($demande['RefDemandeur']);
+        $this->page->addVar("infoDemandeur", $infoDemandeur);
+        $approbation1 = $this->managers->getManagerOf("Demande")->getEmployeInformation($demande['Approv1_ID']);
+        $this->page->addVar("approbation1", $approbation1);
+        $approbation2 = $this->managers->getManagerOf("Demande")->getEmployeInformation($demande['Approv2_ID']);
+        $this->page->addVar("approbation2", $approbation2);
+
+
+        $approbation3 = $this->managers->getManagerOf("Demande")->getEmployeInformation($demande['Approv3_ID']);
+        $this->page->addVar("approbation3", $approbation3);
+
+
+        $commentaires = $this->managers->getManagerOf("Demande")->getDemandeObservation($request->getData('id'));
+        $this->page->addVar("commentaires", $commentaires);
+
+        $documents =  $this->managers->getManagerOf("Demande")->getDemandeDocument($request->getData('id'));
+        $this->page->addVar("documents", $documents);
+    }
+
+    public function executeAddObservation(\Library\HTTPRequest $request)
+    {
+        $this->managers->getManagerOf("Demande")->addObservation($request);
+        $_SESSION['message']['number'] = 2;
+        $_SESSION['message']['type'] = 'success';
+        $_SESSION['message']['text'] = 'Opération effectuée.';
+        $this->app()->httpResponse()->redirect('/demande/display/' . $request->postData('RefDemande'));
+    }
+
+
+    public function executeUploadFile(\Library\HTTPRequest $request)
+
+    {
+        $this->managers->getManagerOf("Demande")->uploadfile();
+        $_SESSION['message']['number'] = 2;
+        $_SESSION['message']['type'] = 'success';
+        $_SESSION['message']['text'] = 'Opération effectuée.';
+        $this->app()->httpResponse()->redirect('/demande/display/' . $request->postData('RefDemande'));
+    }
+    public function executeUpdate(\Library\HTTPRequest $request)
+    {
+
+        $this->page->addVar("titles", "Modification de la demande "); // Titre de la page
+        $demande =  $this->managers->getManagerOf("Demande")->getSingleDemande($request->getData('id'));
+        $this->page->addVar("demande", $demande);
+        $infoDemandeur = $this->managers->getManagerOf("Demande")->getEmployeInformation($demande['RefDemandeur']);
+        $this->page->addVar("infoDemandeur", $infoDemandeur);
+
+        $demandes =  $this->managers->getManagerOf("Demande")->getDemandeList();
+        $this->page->addVar("demandes", $demandes);
+
+        if ($request->method() == "POST" && $request->postData('RefTypeDemande')) {
+            $this->managers->getManagerOf("Demande")->updateDemande($request);
+            $_SESSION['message']['number'] = 2;
+            $_SESSION['message']['type'] = 'success';
+            $_SESSION['message']['text'] = 'Opération effectuée.';
+            $this->app()->httpResponse()->redirect('/demande/index');
+        }
+    }
+
+    public function executeDelete(\Library\HTTPRequest $request)
+    {
+        $this->managers->getManagerOf("Demande")->delete($request->getData('id'));
+        $_SESSION['message']['number'] = 2;
+        $_SESSION['message']['type'] = 'success';
+        $_SESSION['message']['text'] = 'Opération effectuée.';
+        $this->app()->httpResponse()->redirect('/demande/index');
+    }
+
+    public function executeApprov(\Library\HTTPRequest $request)
+    {
+        $this->managers->getManagerOf("Demande")->ApprovDemande($request->getData('id'), $request->getData('statut'));
+        $_SESSION['message']['number'] = 2;
+        $_SESSION['message']['type'] = 'success';
+        $_SESSION['message']['text'] = 'Opération effectuée.';
+        $this->app()->httpResponse()->redirect('/demande/index');
+    }
+
+    public function executeCancel(\Library\HTTPRequest $request)
+    {
+        $this->managers->getManagerOf("Demande")->CancelDemande($request->getData('id'), $request->getData('statut'));
+        $_SESSION['message']['number'] = 2;
+        $_SESSION['message']['type'] = 'success';
+        $_SESSION['message']['text'] = 'Opération effectuée.';
+        $this->app()->httpResponse()->redirect('/demande/index');
     }
 }

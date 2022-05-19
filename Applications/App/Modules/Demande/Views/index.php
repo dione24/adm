@@ -61,6 +61,7 @@
                                                              <i class="fas fa-eye"></i>
                                                          </a></td>
                                                      <td class="td-actions">
+                                                         <?php if ($demande['statut_demande'] == 1) { ?>
                                                          <a href="/demande/update/<?= $demande['RefDemande']; ?>"
                                                              class="btn btn-success waves-effect waves-light"><i
                                                                  class="fa fa-edit"> </i></a>
@@ -68,9 +69,8 @@
                                                              class="btn btn-danger waves-effect waves-light"
                                                              onclick="return confirm('Voulez-vous vraiment supprimer cet élément ?');"><i
                                                                  class="fa fa-trash-alt"> </i></a>
+                                                         <?php } ?>
                                                      </td>
-
-
                                                  </tr>
 
                                                  <?php } ?>
@@ -87,7 +87,7 @@
                          <div>
                              <h4 class="card-title">Nouvelle Demande </h4>
                              <p class="card-title-desc">Veuillez Remplir la demande</p>
-                             <form method="POST">
+                             <form method="POST" enctype="multipart/form-data">
                                  <div class="form-group row mb-4">
                                      <label for="billing-name" class="col-md-2 col-form-label">Libele</label>
                                      <div class="col-md-10">
@@ -132,7 +132,7 @@
                          aria-labelledby="v-pills-confir-tab">
                          <div class="card shadow-none border mb-0">
                              <div>
-                                 <h4 class="card-title">Mes Demandes</h4>
+                                 <h4 class="card-title">Demandes</h4>
                                  <p class="card-title-desc"></p>
                                  <div class="card">
                                      <div class="card-body">
@@ -142,6 +142,7 @@
                                                      <tr>
                                                          <th class="align-middle">Date</th>
                                                          <th class="align-middle">Type</th>
+                                                         <th class="align-middle">Libele</th>
                                                          <th class="align-middle">Statut</th>
                                                          <th class="align-middle">Afficher</th>
                                                          <th class="align-middle">Action</th>
@@ -149,11 +150,34 @@
                                                      </tr>
                                                  </thead>
                                                  <tbody>
-                                                     <td></td>
-                                                     <td></td>
-                                                     <td></td>
-                                                     <td></td>
-                                                     <td></td>
+                                                     <?php foreach ($mesvalidation as $validations) {
+                                                            foreach ($validations['alldemande'] as $key => $validation) {
+                                                        ?>
+                                                     <tr>
+                                                         <td><?= $validation['date_demande']; ?></td>
+                                                         <td><?= $validation['name_demande']; ?></td>
+                                                         <td><?= $validation['libele']; ?></td>
+                                                         <td><?= $validation['name_statut_demande'];  ?>
+                                                         </td>
+                                                         <td><a href="/demande/display/<?= $validation['RefDemande']; ?>"
+                                                                 target="_blank">
+                                                                 <i class="fas fa-eye"></i>
+                                                             </a></td>
+
+                                                         <td class="td-actions">
+                                                             <?php if ($validation['statut_demande'] != 3) { ?>
+                                                             <a href="/demande/approv/<?= $demande['RefDemande']; ?>/<?= $validation['statut_demande']; ?>"
+                                                                 class="btn btn-success waves-effect waves-light"><i
+                                                                     class="fas fa-arrow-alt-circle-right"> </i></a>
+                                                             <a href="/demande/cancel/<?= $demande['RefDemande'];  ?>/<?= $validation['statut_demande']; ?>"
+                                                                 class="btn btn-danger waves-effect waves-light"
+                                                                 onclick="return confirm('Voulez-vous vraiment rejete cette demande ?');"><i
+                                                                     class="fas fa-arrow-alt-circle-left"> </i></a>
+                                                         </td>
+                                                         <?php } ?>
+                                                     </tr>
+                                                     <?php }
+                                                        } ?>
 
 
                                                  </tbody>

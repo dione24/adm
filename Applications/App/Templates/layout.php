@@ -91,10 +91,26 @@
                                 </a>
                             </li>
 
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="/panel" id="topnav-dashboard"
+                                    role="button">
+                                    <i class="fas fa-user-friends"></i><span key="t-dashboards"> Employés</span>
+                                </a>
+                            </li>
+
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="/employe" id="topnav-dashboard"
+                                    role="button">
+                                    <i class="fas fa-user-cog"></i><span key="t-dashboards"> Panel</span>
+                                </a>
+                            </li>
+
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle arrow-none" href="/logout" id="topnav-dashboard"
                                     role="button">
-                                    <i class="bx bx-log-out-circle"></i><span key="t-dashboards">Déconnexion</span>
+                                    <i class="bx bx-log-out-circle"></i><span key="t-dashboards"> Déconnexion</span>
                                 </a>
                             </li>
                         </ul>
