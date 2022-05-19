@@ -18,46 +18,6 @@ class UsersManagerPDO extends UsersManager
         }
     }
 
-    public function getListeOf()
-    {
-        $requete = $this->dao->prepare("SELECT * FROM users INNER JOIN tblestatus ON tblestatus.refstatus=users.status WHERE  tblestatus.refstatus=7");
-        $requete->execute();
-        $Users = $requete->fetchAll();
-        return $Users;
-    }
-
-    public function Statut()
-    {
-        $requete = $this->dao->prepare("SELECT * FROM tblestatus");
-        $requete->execute();
-        $resultat = $requete->fetchAll();
-        return $resultat;
-    }
-
-    public function UsersInfo($id)
-    {
-        $requete  = $this->dao->prepare("SELECT * FROM deb_acces WHERE RefDeb=:RefDeb");
-        $requete->bindValue(':RefDeb', $id, \PDO::PARAM_INT);
-        $requete->execute();
-        $usersinfo = $requete->fetch();
-        return $usersinfo;
-    }
-
-
-    public function AddUsers()
-    {
-        $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-        $requete = $this->dao->prepare("INSERT INTO users (nom,prenom,login,password,status,email_users) VALUES (:nom,:prenom,:login,:password,:status,:email)");
-        $requete->bindValue(':nom', $_POST['nom'], \PDO::PARAM_STR);
-        $requete->bindValue(':prenom', $_POST['prenom'], \PDO::PARAM_STR);
-        $requete->bindValue(':login', $_POST['login'], \PDO::PARAM_STR);
-        $requete->bindValue(':password', $password, \PDO::PARAM_STR);
-        $requete->bindValue(':status', $_POST['id_status'], \PDO::PARAM_INT);
-        $requete->bindValue(':email_users', $_POST['email'], \PDO::PARAM_STR);
-        $requete->execute();
-    }
-
-
     public function UserPermission()
     {
         $requete = $this->dao->prepare("SELECT * FROM permissions WHERE RefUsers=:RefUsers");
@@ -65,5 +25,12 @@ class UsersManagerPDO extends UsersManager
         $requete->execute();
         $result = $requete->fetchAll();
         return $result;
+    }
+    public function getList()
+    {
+        $requete = $this->dao->prepare("SELECT * FROM users INNER JOIN permissions ON permissions.RefUsers=users.RefUsers");
+        $requete->execute();
+        $resultat = $requete->fetchAll();
+        return $resultat;
     }
 }

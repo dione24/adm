@@ -93,16 +93,16 @@
 
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle arrow-none" href="/panel" id="topnav-dashboard"
-                                    role="button">
+                                <a class="nav-link dropdown-toggle arrow-none" href="/employe/index"
+                                    id="topnav-dashboard" role="button">
                                     <i class="fas fa-user-friends"></i><span key="t-dashboards"> Employés</span>
                                 </a>
                             </li>
 
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle arrow-none" href="/employe" id="topnav-dashboard"
-                                    role="button">
+                                <a class="nav-link dropdown-toggle arrow-none" href="/pannel/index"
+                                    id="topnav-dashboard" role="button">
                                     <i class="fas fa-user-cog"></i><span key="t-dashboards"> Panel</span>
                                 </a>
                             </li>

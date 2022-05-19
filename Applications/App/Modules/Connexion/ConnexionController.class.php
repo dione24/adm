@@ -17,9 +17,8 @@ class ConnexionController extends \Library\BackController
                 $_SESSION['login'] = $User['login'];
                 $_SESSION['Nom'] = $User['nom'];
                 $_SESSION['Prenom'] = $User['prenom'];
-
                 $_SESSION['statut'] = $User['status'];
-                $this->app()->httpResponse()->redirect('/home');
+                $this->app()->httpResponse()->redirect('/');
             }
         }
     }
