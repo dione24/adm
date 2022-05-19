@@ -21,17 +21,8 @@
              <div class="card-body">
                  <div class="d-flex">
                      <div class="flex-shrink-0 me-4">
-                         <span class="btn btn-<?php if ($demande['statut_demande'] == 1) {
-                                                    echo 'warning';
-                                                } elseif ($demande['statut_demande'] == 2) {
-                                                    echo 'primary';
-                                                } elseif ($demande['statut_demande'] == 3) {
-                                                    echo 'success';
-                                                } elseif ($demande['statut_demande'] == 4) {
-                                                    echo 'success';
-                                                } elseif ($demande['statut_demande'] == 5) {
-                                                    echo 'danger';
-                                                }; ?>"><?= $demande['name_statut_demande']; ?></span>
+                         <span
+                             class="btn btn-<?= $getStatutDemande['color']; ?>"><?= $getStatutDemande['name_statut_demande']; ?></span>
                      </div>
 
                      <div class=" flex-grow-1 overflow-hidden">
@@ -57,7 +48,10 @@
                          <div class="mt-4">
                              <h5 class="font-size-14"><i class="bx bx-calendar-check me-1 text-primary"></i> Due Date
                              </h5>
-                             <p class="text-muted mb-0"><?= date('d/m/Y', strtotime($demande['Approv3_Time'])); ?></p>
+                             <p class="text-muted mb-0">
+                                 <? //= date('d/m/Y', strtotime($demande['Approv3_Time'])); 
+                                    ?>
+                             </p>
                          </div>
                      </div>
                  </div>
@@ -88,55 +82,26 @@
                                      </div>
                                  </td>
                              </tr>
+                             <?php foreach ($informationLog as $infoLog) { ?>
                              <tr>
-                                 <td style="width: 50px;"> <i class="fas fa-user-clock text-warning"></i>
-                                     <?= date('d/m/Y H:i', strtotime($demande['Approv1_Time'])); ?>
+                                 <td style="width: 50px;"> <i
+                                         class="fas fa-user-clock text-<?= $infoLog['color']; ?>"></i>
+                                     <?= date('d/m/Y H:i', strtotime($infoLog['log_time'])); ?>
                                  </td>
                                  <td>
-                                     <h5 class="font-size-14 m-0"><a href="javascript: void(0);"
-                                             class="text-dark"><?= $approbation1['nomEmploye'] . ' ' . $approbation1['prenomEmploye']; ?></a>
+                                     <h5 class="font-size-14 m-0"><a href="javascript: void(0);" class="text-dark">
+                                             <?= $infoLog['nomEmploye'] . ' ' . $infoLog['prenomEmploye'];  ?>
+                                         </a>
                                      </h5>
                                  </td>
                                  <td>
                                      <div>
                                          <a href="javascript: void(0);"
-                                             class="badge bg-primary bg-soft text-primary font-size-11"><?= $approbation1['posteEmploye']; ?></a>
+                                             class="badge bg-primary bg-soft text-primary font-size-11"><?= $infoLog['posteEmploye']; ?></a>
                                      </div>
                                  </td>
                              </tr>
-                             <tr>
-                                 <td style="width: 50px;"> <i class="fas fa-user-clock text-info"></i>
-                                     <?= date('d/m/Y H:i', strtotime($demande['Approv2_Time'])); ?>
-                                 </td>
-                                 <td>
-                                     <h5 class="font-size-14 m-0"><a href="javascript: void(0);"
-                                             class="text-dark"><?= $approbation2['nomEmploye'] . ' ' . $approbation2['prenomEmploye']; ?></a>
-                                     </h5>
-                                 </td>
-                                 <td>
-                                     <div>
-                                         <a href="javascript: void(0);"
-                                             class="badge bg-primary bg-soft text-primary font-size-11"><?= $approbation2['posteEmploye']; ?></a>
-                                     </div>
-                                 </td>
-                             </tr>
-
-                             <tr>
-                                 <td style="width: 50px;"> <i class="fas fa-user-clock text-success"></i>
-                                     <?= date('d/m/Y H:i', strtotime($demande['Approv3_Time'])); ?>
-                                 </td>
-                                 <td>
-                                     <h5 class="font-size-14 m-0"><a href="javascript: void(0);"
-                                             class="text-dark"><?= $approbation3['nomEmploye'] . ' ' . $approbation3['prenomEmploye']; ?></a>
-                                     </h5>
-                                 </td>
-                                 <td>
-                                     <div>
-                                         <a href="javascript: void(0);"
-                                             class="badge bg-primary bg-soft text-primary font-size-11"><?= $approbation3['posteEmploye']; ?></a>
-                                     </div>
-                                 </td>
-                             </tr>
+                             <?php } ?>
 
                          </tbody>
                      </table>
@@ -149,7 +114,6 @@
  <!-- end row -->
 
  <div class="row">
-
      <div class="col-lg-4">
          <div class="card">
              <div class="card-body">
@@ -208,10 +172,6 @@
 
                              <?php } ?>
 
-
-
-
-
                          </tbody>
                      </table>
                  </div>
@@ -241,8 +201,6 @@
              </div>
          </div>
      </div>
-
-
      <div class="col-lg-4">
          <div class="card">
              <div class="card-body">

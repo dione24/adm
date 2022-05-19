@@ -23,7 +23,7 @@
     <route url="/demande/update/([0-9]+)" module="Demande" vars="id" action="update"/>
     <route url="/demande/delete/([0-9]+)" module="Demande" vars="id" action="delete"/>
     <route url="/demande/approv/([0-9]+)/([0-9]+)" module="Demande" vars="id,statut" action="approv"/>
-    <route url="/demande/cancel/([0-9]+)/([0-9]+)" module="Demande" vars="id,statut" action="cancel"/>
+    <route url="/demande/cancel/([0-9]+)/([0-9]+)" module="Demande" vars="id,type" action="cancel"/>
 
     <route url="/employe/index" module="Employe" action="index" />
     <route url="/employe/add" module="Employe" action="add" />

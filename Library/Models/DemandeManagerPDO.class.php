@@ -16,7 +16,7 @@ class DemandeManagerPDO extends \Library\Models\DemandeManager
 
     public function getMesDemandes()
     {
-        $requete = $this->dao->prepare("SELECT * FROM tbledemande INNER JOIN typedemande ON typedemande.RefTypeDemande=tbledemande.RefTypeDemande INNER JOIN satut_demande ON satut_demande.RefStatutDemande=tbledemande.statut_demande   WHERE tbledemande.RefDemandeur=:RefDemandeur ORDER BY tbledemande.RefDemande DESC");
+        $requete = $this->dao->prepare("SELECT * FROM tbledemande INNER JOIN typedemande ON typedemande.RefTypeDemande=tbledemande.RefTypeDemande INNER JOIN statut_demande ON statut_demande.RefStatutDemande=tbledemande.statut_demande   WHERE tbledemande.RefDemandeur=:RefDemandeur ORDER BY tbledemande.RefDemande DESC");
         $requete->bindValue(':RefDemandeur', $_SESSION['RefUsers']);
         $requete->execute();
         $resultat = $requete->fetchAll();
@@ -24,21 +24,41 @@ class DemandeManagerPDO extends \Library\Models\DemandeManager
     }
     public function getSingleDemande($id)
     {
-        $requete = $this->dao->prepare("SELECT * FROM tbledemande INNER JOIN typedemande ON typedemande.RefTypeDemande=tbledemande.RefTypeDemande INNER JOIN satut_demande ON satut_demande.RefStatutDemande=tbledemande.statut_demande INNER JOIN users ON users.RefUsers=tbledemande.RefDemandeur   WHERE tbledemande.RefDemande=:RefDemande ");
+        $requete = $this->dao->prepare("SELECT * FROM tbledemande INNER JOIN typedemande ON typedemande.RefTypeDemande=tbledemande.RefTypeDemande INNER JOIN statut_demande ON statut_demande.RefStatutDemande=tbledemande.statut_demande INNER JOIN users ON users.RefUsers=tbledemande.RefDemandeur WHERE tbledemande.RefDemande=:RefDemande ");
         $requete->bindValue(':RefDemande', $id);
         $requete->execute();
         $resultat = $requete->fetch();
         return $resultat;
     }
+    public function getStatutDemande($RefTypeDemande, $statut)
+    {
+        $requete = $this->dao->prepare("SELECT * FROM statut_demande WHERE RefTypeDemande=:RefTypeDemande AND RefStatutDemande=:RefStatutDemande");
+        $requete->bindValue(':RefTypeDemande', $RefTypeDemande);
+        $requete->bindValue(':RefStatutDemande', $statut);
+        $requete->execute();
+        $resultat = $requete->fetch();
+        return $resultat;
+    }
 
-
-
-
-
-    public function addDemande()
+    public function getFirstStatutDemande($RefTypeDemande, $position)
     {
 
-
+        $requete = $this->dao->prepare("SELECT * FROM statut_demande WHERE RefTypeDemande=:RefTypeDemande ORDER BY RefStatutDemande ASC");
+        $requete->bindValue(':RefTypeDemande', $RefTypeDemande);
+        $requete->execute();
+        $resultat = $requete->fetchAll();
+        return $resultat[$position];
+    }
+    public function getLastStatutDemande($RefTypeDemande)
+    {
+        $requete = $this->dao->prepare("SELECT * FROM statut_demande WHERE RefTypeDemande=:RefTypeDemande ORDER BY RefStatutDemande DESC");
+        $requete->bindValue(':RefTypeDemande', $RefTypeDemande);
+        $requete->execute();
+        $resultat = $requete->fetchAll();
+        return $resultat[0]['RefStatutDemande'];
+    }
+    public function addDemande()
+    {
         if (!empty($_FILES['file'])) {
             if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
                 if ($_FILES['file']['size'] <= 100000000) {
@@ -58,17 +78,16 @@ class DemandeManagerPDO extends \Library\Models\DemandeManager
             }
         }
 
-
-        $requete = $this->dao->prepare("INSERT INTO tbledemande(RefTypeDemande,libele,note,file,RefDemandeur) VALUES(:RefTypeDemande,:libele,:note,:file,:RefDemandeur)");
+        $getFirstStatutDemande =  $this->getFirstStatutDemande($_POST['RefTypeDemande'], 0);
+        $requete = $this->dao->prepare("INSERT INTO tbledemande(RefTypeDemande,libele,note,file,RefDemandeur,statut_demande) VALUES(:RefTypeDemande,:libele,:note,:file,:RefDemandeur ,:statut_demande)");
         $requete->bindValue(':RefTypeDemande', $_POST['RefTypeDemande'], \PDO::PARAM_INT);
         $requete->bindValue(':libele', $_POST['libele'], \PDO::PARAM_STR);
         $requete->bindValue(':note', $_POST['note'], \PDO::PARAM_STR);
         $requete->bindValue(':file', $new_file_name, \PDO::PARAM_STR);
         $requete->bindValue(':RefDemandeur', $_SESSION['RefUsers'], \PDO::PARAM_INT);
+        $requete->bindValue(':statut_demande', $getFirstStatutDemande['RefStatutDemande'], \PDO::PARAM_INT);
         $requete->execute();
     }
-
-
     public function getEmployeInformation($id)
     {
         $requete = $this->dao->prepare("SELECT * FROM tbleemploye WHERE RefUsers=:RefUsers");
@@ -98,7 +117,6 @@ class DemandeManagerPDO extends \Library\Models\DemandeManager
 
     public function uploadfile()
     {
-
         if (!empty($_FILES['name_documents'])) {
             if (isset($_FILES['name_documents']) && $_FILES['name_documents']['error'] == 0) {
                 if ($_FILES['name_documents']['size'] <= 100000000) {
@@ -136,7 +154,6 @@ class DemandeManagerPDO extends \Library\Models\DemandeManager
 
     public function updateDemande()
     {
-
         if (!empty($_FILES['file'])) {
             if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
                 if ($_FILES['file']['size'] <= 100000000) {
@@ -182,10 +199,13 @@ class DemandeManagerPDO extends \Library\Models\DemandeManager
 
     public function getDemande($value)
     {
-        $requete = $this->dao->prepare("SELECT * FROM tbledemande INNER JOIN typedemande ON typedemande.RefTypeDemande=tbledemande.RefTypeDemande INNER JOIN satut_demande ON satut_demande.RefStatutDemande=tbledemande.statut_demande  WHERE statut_demande=:statut_demmande   ORDER BY tbledemande.RefDemande DESC");
+        $requete = $this->dao->prepare("SELECT * FROM tbledemande INNER JOIN typedemande ON typedemande.RefTypeDemande=tbledemande.RefTypeDemande INNER JOIN statut_demande ON statut_demande.RefStatutDemande=tbledemande.statut_demande  WHERE statut_demande=:statut_demmande   ORDER BY tbledemande.RefDemande DESC");
         $requete->bindValue(':statut_demmande', $value);
         $requete->execute();
         $resultat = $requete->fetchAll();
+        foreach ($resultat as $key => $value) {
+            $resultat[$key]['lastStatus'] =  $this->getLastStatutDemande($value['RefTypeDemande']);
+        }
         return $resultat;
     }
 
@@ -199,6 +219,16 @@ class DemandeManagerPDO extends \Library\Models\DemandeManager
         return $result;
     }
 
+
+    public function insertToLogCounter($demande, $users, $statut)
+    {
+        $requete = $this->dao->prepare("INSERT INTO log_counter (RefDemande,RefUsers,RefStatutDemande) VALUES (:RefDemande,:RefUsers,:RefStatutDemande)");
+        $requete->bindValue(':RefDemande', $demande, \PDO::PARAM_INT);
+        $requete->bindValue(':RefUsers', $users, \PDO::PARAM_INT);
+        $requete->bindValue(':RefStatutDemande', $statut, \PDO::PARAM_INT);
+        $requete->execute();
+    }
+
     public function ApprovDemande($id, $statut)
     {
         $newsatut = $statut + 1;
@@ -206,14 +236,36 @@ class DemandeManagerPDO extends \Library\Models\DemandeManager
         $requete->bindValue(':RefDemande', $id, \PDO::PARAM_INT);
         $requete->bindValue(':statut_demande', $newsatut, \PDO::PARAM_INT);
         $requete->execute();
+
+        $this->insertToLogCounter($id, $_SESSION['RefUsers'], $newsatut);
     }
 
-    public function CancelDemande($id, $statut)
+    public function CancelDemande($id, $typedemande)
     {
-        $newsatut = 4;
+        $statut = $this->getLastStatutDemande($typedemande);
+
         $requete = $this->dao->prepare("UPDATE tbledemande SET statut_demande=:statut_demande WHERE RefDemande=:RefDemande");
         $requete->bindValue(':RefDemande', $id, \PDO::PARAM_INT);
-        $requete->bindValue(':statut_demande', $newsatut, \PDO::PARAM_INT);
+        $requete->bindValue(':statut_demande', $statut, \PDO::PARAM_INT);
         $requete->execute();
+
+        $this->insertToLogCounter($id, $_SESSION['RefUsers'], $statut);
+    }
+
+
+    public function getInformationLog($id)
+    {
+        $requete = $this->dao->prepare("SELECT * FROM log_counter INNER JOIN users ON users.RefUsers=log_counter.RefUsers INNER JOIN statut_demande ON statut_demande.RefStatutDemande=log_counter.RefStatutDemande INNER JOIN  tbleemploye ON  tbleemploye.RefEmploye=log_counter.RefUsers WHERE log_counter.RefDemande=:RefDemande");
+        $requete->bindValue(':RefDemande', $id, \PDO::PARAM_INT);
+        $requete->execute();
+        $resultat = $requete->fetchAll();
+        return $resultat;
+    }
+    public function getNombreStatutDemande()
+    {
+        $requete = $this->dao->prepare("SELECT COUNT(RefStatutDemande) as nombre FROM statut_demande");
+        $requete->execute();
+        $resultat = $requete->fetch();
+        return $resultat['nombre'];
     }
 }

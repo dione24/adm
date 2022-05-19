@@ -47,14 +47,14 @@
                                              </thead>
                                              <tbody>
                                                  <?php foreach ($mesdemandes as $key => $demande) { ?>
-
                                                  <tr>
-
                                                      <td><?= $demande['date_demande']; ?></td>
-                                                     <td><?= $demande['name_demande']; ?></td>
-                                                     <td><?= $demande['libele']; ?></td>
+                                                     <td><?= $demande['name_demande'];  ?>
+                                                     </td>
 
-                                                     <td><?= $demande['name_statut_demande'];  ?>
+                                                     <td><?= $demande['libele']; ?></td>
+                                                     <td><span
+                                                             class="btn btn-<?= $demande['color']; ?>"><?= $demande['name_statut_demande']; ?></span>
                                                      </td>
                                                      <td><a href="/demande/display/<?= $demande['RefDemande']; ?>"
                                                              target="_blank">
@@ -121,18 +121,15 @@
                                          <input type="file" class="form-control" id="billing-name" name="file">
                                      </div>
                                  </div>
-
                                  <button class="btn btn-success" type="submit"> Valider</button>
-
                              </form>
                          </div>
                      </div>
-
                      <div class="tab-pane fade" id="v-pills-confir" role="tabpanel"
                          aria-labelledby="v-pills-confir-tab">
                          <div class="card shadow-none border mb-0">
                              <div>
-                                 <h4 class="card-title">Demandes</h4>
+                                 <h4 class="card-title">Mes Traitements</h4>
                                  <p class="card-title-desc"></p>
                                  <div class="card">
                                      <div class="card-body">
@@ -155,21 +152,24 @@
                                                         ?>
                                                      <tr>
                                                          <td><?= $validation['date_demande']; ?></td>
-                                                         <td><?= $validation['name_demande']; ?></td>
-                                                         <td><?= $validation['libele']; ?></td>
-                                                         <td><?= $validation['name_statut_demande'];  ?>
+                                                         <td><?= $validation['name_demande'];  ?>
                                                          </td>
+                                                         <td><?= $validation['libele']; ?></td>
+                                                         <td><span
+                                                                 class="btn btn-<?= $demande['color']; ?>"><?= $demande['name_statut_demande']; ?></span>
+                                                         </td>
+
                                                          <td><a href="/demande/display/<?= $validation['RefDemande']; ?>"
                                                                  target="_blank">
                                                                  <i class="fas fa-eye"></i>
                                                              </a></td>
 
                                                          <td class="td-actions">
-                                                             <?php if ($validation['statut_demande'] != 3) { ?>
+                                                             <?php if (in_array($validation['statut_demande'], $permission) && $validation['statut_demande'] != ($validation['lastStatus'] - 1)) { ?>
                                                              <a href="/demande/approv/<?= $demande['RefDemande']; ?>/<?= $validation['statut_demande']; ?>"
                                                                  class="btn btn-success waves-effect waves-light"><i
                                                                      class="fas fa-arrow-alt-circle-right"> </i></a>
-                                                             <a href="/demande/cancel/<?= $demande['RefDemande'];  ?>/<?= $validation['statut_demande']; ?>"
+                                                             <a href="/demande/cancel/<?= $demande['RefDemande'];  ?>/<?= $validation['RefTypeDemande']; ?>"
                                                                  class="btn btn-danger waves-effect waves-light"
                                                                  onclick="return confirm('Voulez-vous vraiment rejete cette demande ?');"><i
                                                                      class="fas fa-arrow-alt-circle-left"> </i></a>

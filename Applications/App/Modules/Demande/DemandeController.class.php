@@ -18,15 +18,19 @@ class DemandeController extends \Library\BackController
         }
         $mesdemandes = $this->managers->getManagerOf("Demande")->getMesDemandes();
         $this->page->addVar("mesdemandes", $mesdemandes);
-
         $mesvalidation =  $this->managers->getManagerOf("Demande")->getMesValidations();
-
         foreach ($mesvalidation as $key => $validations) {
             $mesvalidation[$key]['alldemande'] = $this->managers->getManagerOf("Demande")->getDemande($validations['name_approv']);
         }
-
-
+        $permissions = array();
+        $AllPermissions = $this->managers->getManagerOf('Demande')->getMesValidations();
+        foreach ($AllPermissions as $key => $value) {
+            $permissions[] = $value['name_approv'];
+        }
+        $this->page->addVar('permission', $permissions);
         $this->page->addVar("mesvalidation", $mesvalidation);
+        $nombreStatutDemande = $this->managers->getManagerOf("Demande")->getNombreStatutDemande();
+        $this->page->addVar("nombreStatutDemande", $nombreStatutDemande);
     }
 
     public function executeDisplay(\Library\HTTPRequest $request)
@@ -36,21 +40,15 @@ class DemandeController extends \Library\BackController
         $this->page->addVar("demande", $demande);
         $infoDemandeur = $this->managers->getManagerOf("Demande")->getEmployeInformation($demande['RefDemandeur']);
         $this->page->addVar("infoDemandeur", $infoDemandeur);
-        $approbation1 = $this->managers->getManagerOf("Demande")->getEmployeInformation($demande['Approv1_ID']);
-        $this->page->addVar("approbation1", $approbation1);
-        $approbation2 = $this->managers->getManagerOf("Demande")->getEmployeInformation($demande['Approv2_ID']);
-        $this->page->addVar("approbation2", $approbation2);
-
-
-        $approbation3 = $this->managers->getManagerOf("Demande")->getEmployeInformation($demande['Approv3_ID']);
-        $this->page->addVar("approbation3", $approbation3);
-
-
         $commentaires = $this->managers->getManagerOf("Demande")->getDemandeObservation($request->getData('id'));
         $this->page->addVar("commentaires", $commentaires);
-
         $documents =  $this->managers->getManagerOf("Demande")->getDemandeDocument($request->getData('id'));
         $this->page->addVar("documents", $documents);
+        $informationLog = $this->managers->getManagerOf("Demande")->getInformationLog($demande['RefDemande']);
+        $this->page->addVar("informationLog", $informationLog);
+
+        $getStatutDemande = $this->managers->getManagerOf("Demande")->getStatutDemande($demande['RefTypeDemande'], $demande['statut_demande']);
+        $this->page->addVar("getStatutDemande", $getStatutDemande);
     }
 
     public function executeAddObservation(\Library\HTTPRequest $request)
@@ -61,7 +59,6 @@ class DemandeController extends \Library\BackController
         $_SESSION['message']['text'] = 'Opération effectuée.';
         $this->app()->httpResponse()->redirect('/demande/display/' . $request->postData('RefDemande'));
     }
-
 
     public function executeUploadFile(\Library\HTTPRequest $request)
 
@@ -113,7 +110,7 @@ class DemandeController extends \Library\BackController
 
     public function executeCancel(\Library\HTTPRequest $request)
     {
-        $this->managers->getManagerOf("Demande")->CancelDemande($request->getData('id'), $request->getData('statut'));
+        $this->managers->getManagerOf("Demande")->CancelDemande($request->getData('id'), $request->getData('type'));
         $_SESSION['message']['number'] = 2;
         $_SESSION['message']['type'] = 'success';
         $_SESSION['message']['text'] = 'Opération effectuée.';
