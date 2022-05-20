@@ -85,9 +85,9 @@
                             </li>
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle arrow-none" href="/paiement" id="topnav-dashboard"
-                                    role="button">
-                                    <i class="bx bx-money"></i><span key="t-dashboards">Facturations</span>
+                                <a class="nav-link dropdown-toggle arrow-none" href="/comptabilite/index"
+                                    id="topnav-dashboard" role="button">
+                                    <i class="bx bx-money"></i><span key="t-dashboards">Comptabilite</span>
                                 </a>
                             </li>
 

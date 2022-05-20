@@ -206,6 +206,7 @@ class DemandeManagerPDO extends \Library\Models\DemandeManager
         $resultat = $requete->fetchAll();
         foreach ($resultat as $key => $value) {
             $resultat[$key]['lastStatus'] =  $this->getLastStatutDemande($value['RefTypeDemande']);
+            $resultat[$key]['infodemandeur'] =  $this->getEmployeInformation($value['RefDemandeur']);
         }
         return $resultat;
     }

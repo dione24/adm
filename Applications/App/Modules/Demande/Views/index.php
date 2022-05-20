@@ -18,15 +18,6 @@
                  <i class="bx bx-badge-check d-block check-nav-icon mt-4 mb-2"></i>
                  <p class="fw-bold mb-4">Mes Traitements</p>
              </a>
-             <?php if (in_array(3, $droitDecaissement)) { ?>
-
-             <a class="nav-link" id="v-pills-confirm-tab" data-bs-toggle="pill" href="#v-pills-confirm" role="tab"
-                 aria-controls="v-pills-confir" aria-selected="false">
-                 <i class="bx bx-badge-check d-block check-nav-icon mt-4 mb-2"></i>
-                 <p class="fw-bold mb-4">Decaissements</p>
-             </a>
-             <?php } ?>
-
          </div>
      </div>
      <div class="col-xl-10 col-sm-9">
@@ -197,71 +188,6 @@
                              </div>
                          </div>
                      </div>
-                     <?php if (in_array(3, $droitDecaissement)) { ?>
-
-                     <div class="tab-pane fade" id="v-pills-confirm" role="tabpanel"
-                         aria-labelledby="v-pills-confirm-tab">
-                         <div class="card shadow-none border mb-0">
-                             <div>
-                                 <h4 class="card-title">Decaissements</h4>
-                                 <p class="card-title-desc"></p>
-                                 <div class="card">
-                                     <div class="card-body">
-                                         <div class="table-responsive">
-                                             <table id="dataTable" class="table align-middle table-nowrap mb-0">
-                                                 <thead class="table-light">
-                                                     <tr>
-                                                         <th class="align-middle">Date</th>
-                                                         <th class="align-middle">Type</th>
-                                                         <th class="align-middle">Libele</th>
-                                                         <th class="align-middle">Statut</th>
-                                                         <th class="align-middle">Afficher</th>
-                                                         <th class="align-middle">Action</th>
-
-                                                     </tr>
-                                                 </thead>
-                                                 <tbody>
-                                                     <?php foreach ($mesvalidation as $validations) {
-                                                                foreach ($validations['alldemande'] as $key => $validation) {
-                                                            ?>
-                                                     <tr>
-                                                         <td><?= $validation['date_demande']; ?></td>
-                                                         <td><?= $validation['name_demande'];  ?>
-                                                         </td>
-                                                         <td><?= $validation['libele']; ?></td>
-                                                         <td><span
-                                                                 class="btn btn-<?= $validation['color']; ?>"><?= $validation['name_statut_demande']; ?></span>
-                                                         </td>
-
-                                                         <td><a href="/demande/display/<?= $validation['RefDemande']; ?>"
-                                                                 target="_blank">
-                                                                 <i class="fas fa-eye"></i>
-                                                             </a></td>
-
-                                                         <td class="td-actions">
-                                                             <?php if (in_array($validation['statut_demande'], $permission) && $validation['statut_demande'] != ($validation['lastStatus'] - 1)) { ?>
-                                                             <a href="/demande/approv/<?= $validation['RefDemande']; ?>/<?= $validation['statut_demande']; ?>"
-                                                                 class="btn btn-success waves-effect waves-light"><i
-                                                                     class="fas fa-arrow-alt-circle-right"> </i></a>
-                                                             <a href="/demande/cancel/<?= $validation['RefDemande'];  ?>/<?= $validation['RefTypeDemande']; ?>"
-                                                                 class="btn btn-danger waves-effect waves-light"
-                                                                 onclick="return confirm('Voulez-vous vraiment rejete cette demande ?');"><i
-                                                                     class="fas fa-arrow-alt-circle-left"> </i></a>
-                                                         </td>
-                                                         <?php } ?>
-                                                     </tr>
-                                                     <?php }
-                                                            } ?>
-                                                 </tbody>
-                                             </table>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                     <?php } ?>
-
                  </div>
              </div>
              <div class="row mt-4">

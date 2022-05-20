@@ -37,6 +37,12 @@
     <route url="/uploadfile" module="Courrier" action="uploadFile" />
     <route url="/file_view/([0-9]+)/([A-Z])" module="Courrier" vars="id,name" action="file_view" />
 
+    <route url="/comptabilite/index" module="Comptabilite" action="index" />
+    <route url="/comptabilite/nouveau" module="Comptabilite" action="nouveau" />
+    <route url="/comptabilite/update/([0-9]+)" module="Comptabilite" vars="id" action="update"/>
+    <route url="/comptabilite/delete/([0-9]+)" module="Comptabilite" vars="id" action="delete"/>
+    <route url="/comptabilite/print/([0-9]+)" module="Comptabilite" vars="id" action="print"/>
+
 
 
 
