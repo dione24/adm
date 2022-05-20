@@ -31,6 +31,15 @@ class DemandeController extends \Library\BackController
         $this->page->addVar("mesvalidation", $mesvalidation);
         $nombreStatutDemande = $this->managers->getManagerOf("Demande")->getNombreStatutDemande();
         $this->page->addVar("nombreStatutDemande", $nombreStatutDemande);
+
+
+
+        $droitDecaissement = array();
+        $AllPermissionsEncaissement = $this->managers->getManagerOf('Users')->UserPermission();
+        foreach ($AllPermissionsEncaissement as $key => $value) {
+            $droitDecaissement[] = $value['access'];
+        }
+        $this->page->addVar('droitDecaissement', $droitDecaissement);
     }
 
     public function executeDisplay(\Library\HTTPRequest $request)
@@ -49,6 +58,9 @@ class DemandeController extends \Library\BackController
 
         $getStatutDemande = $this->managers->getManagerOf("Demande")->getStatutDemande($demande['RefTypeDemande'], $demande['statut_demande']);
         $this->page->addVar("getStatutDemande", $getStatutDemande);
+
+        $contentDemande = $this->managers->getManagerOf("Demande")->getContentDemande($demande['RefDemande']);
+        $this->page->addVar("contentDemande", $contentDemande);
     }
 
     public function executeAddObservation(\Library\HTTPRequest $request)
@@ -115,5 +127,23 @@ class DemandeController extends \Library\BackController
         $_SESSION['message']['type'] = 'success';
         $_SESSION['message']['text'] = 'Opération effectuée.';
         $this->app()->httpResponse()->redirect('/demande/index');
+    }
+
+    public function executeAddFiche(\Library\HTTPRequest $request)
+    {
+        $this->managers->getManagerOf("Demande")->addFiche($request);
+        $_SESSION['message']['number'] = 2;
+        $_SESSION['message']['type'] = 'success';
+        $_SESSION['message']['text'] = 'Opération effectuée.';
+        $this->app()->httpResponse()->redirect('/demande/display/' . $request->postData('RefDemande'));
+    }
+
+    public function executeDeletefiche(\Library\HTTPRequest $request)
+    {
+        $this->managers->getManagerOf("Demande")->deletefiche($request->getData('id'));
+        $_SESSION['message']['number'] = 2;
+        $_SESSION['message']['type'] = 'success';
+        $_SESSION['message']['text'] = 'Opération effectuée.';
+        $this->app()->httpResponse()->redirect('/demande/display/' . $request->getData('id'));
     }
 }

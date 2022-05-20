@@ -79,13 +79,14 @@ class DemandeManagerPDO extends \Library\Models\DemandeManager
         }
 
         $getFirstStatutDemande =  $this->getFirstStatutDemande($_POST['RefTypeDemande'], 0);
-        $requete = $this->dao->prepare("INSERT INTO tbledemande(RefTypeDemande,libele,note,file,RefDemandeur,statut_demande) VALUES(:RefTypeDemande,:libele,:note,:file,:RefDemandeur ,:statut_demande)");
+        $requete = $this->dao->prepare("INSERT INTO tbledemande(RefTypeDemande,libele,note,file,RefDemandeur,statut_demande,uniqid) VALUES(:RefTypeDemande,:libele,:note,:file,:RefDemandeur ,:statut_demande,:uniqid)");
         $requete->bindValue(':RefTypeDemande', $_POST['RefTypeDemande'], \PDO::PARAM_INT);
         $requete->bindValue(':libele', $_POST['libele'], \PDO::PARAM_STR);
         $requete->bindValue(':note', $_POST['note'], \PDO::PARAM_STR);
         $requete->bindValue(':file', $new_file_name, \PDO::PARAM_STR);
         $requete->bindValue(':RefDemandeur', $_SESSION['RefUsers'], \PDO::PARAM_INT);
         $requete->bindValue(':statut_demande', $getFirstStatutDemande['RefStatutDemande'], \PDO::PARAM_INT);
+        $requete->bindValue(':uniqid', uniqid(), \PDO::PARAM_STR);
         $requete->execute();
     }
     public function getEmployeInformation($id)
@@ -267,5 +268,31 @@ class DemandeManagerPDO extends \Library\Models\DemandeManager
         $requete->execute();
         $resultat = $requete->fetch();
         return $resultat['nombre'];
+    }
+
+    public function getContentDemande($demande)
+    {
+        $requete = $this->dao->prepare("SELECT * FROM demande_content  WHERE RefDemande=:RefDemande");
+        $requete->bindValue(':RefDemande', $demande, \PDO::PARAM_INT);
+        $requete->execute();
+        $resultat = $requete->fetchAll();
+        return $resultat;
+    }
+    public function addFiche()
+    {
+        $requete = $this->dao->prepare("INSERT INTO demande_content (RefDemande,client,divers,adresse,commentaire) VALUES (:RefDemande,:client,:divers,:adresse,:commentaire)");
+        $requete->bindValue(':RefDemande', $_POST['RefDemande'], \PDO::PARAM_INT);
+        $requete->bindValue(':client', $_POST['client'], \PDO::PARAM_STR);
+        $requete->bindValue(':divers', $_POST['motif'], \PDO::PARAM_STR);
+        $requete->bindValue(':adresse', $_POST['adresse'], \PDO::PARAM_STR);
+        $requete->bindValue(':commentaire', $_POST['commentaire'], \PDO::PARAM_STR);
+        $requete->execute();
+    }
+
+    public function deletefiche($id)
+    {
+        $requete = $this->dao->prepare("DELETE FROM demande_content WHERE RefDemande=:RefDemande");
+        $requete->bindValue(':RefDemande', $id, \PDO::PARAM_INT);
+        $requete->execute();
     }
 }

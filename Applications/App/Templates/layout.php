@@ -191,6 +191,34 @@
     }
     </script>
 
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.15.0/printThis.js"
+        integrity="sha512-Fd3EQng6gZYBGzHbKd52pV76dXZZravPY7lxfg01nPx5mdekqS8kX4o1NfTtWiHqQyKhEGaReSf4BrtfKc+D5w=="
+        crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+    var j = jQuery.noConflict(true);
+
+    function Print_Specific_Element() {
+
+        j('#printableArea').printThis({
+            importCSS: true, // to import the page css
+            importStyle: true, // to import <style>css here will be imported !</style> the stylesheets (bootstrap included !)
+            loadCSS: true, // to import style="The css writed Here will be imported !"
+            canvas: true // only if you Have image/Charts ... 
+        });
+    }
+
+    $("#printBtn").click(Print_Specific_Element);
+    </script>
+
+
     <!-- apexcharts -->
     <script src="/libs/apexcharts/apexcharts.min.js"></script>
     <script src="/js/pages/dashboard.init.js"></script>

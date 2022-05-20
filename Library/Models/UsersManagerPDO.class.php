@@ -28,7 +28,7 @@ class UsersManagerPDO extends UsersManager
     }
     public function getList()
     {
-        $requete = $this->dao->prepare("SELECT * FROM users INNER JOIN permissions ON permissions.RefUsers=users.RefUsers");
+        $requete = $this->dao->prepare("SELECT * FROM users ");
         $requete->execute();
         $resultat = $requete->fetchAll();
         return $resultat;

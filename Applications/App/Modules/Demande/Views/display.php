@@ -59,6 +59,14 @@
          </div>
      </div>
      <div class="col-lg-5">
+         <?php if ($demande['RefTypeDemande'] == 5 && ($demande['payement'] != 1)) { ?>
+         <div class="card">
+             <div class="card-body">
+                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newfiche">
+                     <i class="fas fa-sign-out-alt"> FICHE DE SORTIE</i></button>
+             </div>
+         </div>
+         <?php } ?>
          <div class="card">
              <div class="card-body">
                  <h4 class="card-title mb-4">Suivi </h4>
@@ -112,7 +120,6 @@
      <!-- end col -->
  </div>
  <!-- end row -->
-
  <div class="row">
      <div class="col-lg-4">
          <div class="card">
@@ -120,7 +127,6 @@
 
                  <h4 class="card-title mb-4">Fichiers joints <a class="text-muted" data-bs-toggle="modal"
                          data-bs-target="#newfile"> <i class="bx bx-plus-circle fo"></i></a>
-
                  </h4>
                  <div class="table-responsive">
                      <table class="table table-nowrap align-middle table-hover mb-0">
@@ -180,9 +186,12 @@
      </div>
      <!-- end col -->
 
-     <div class="col-lg-4">
+     <div class="col-lg-3">
          <div class="card">
              <div class="card-body">
+                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newObservation">
+                     <i class=" fas fa-comment"></i></button>
+
                  <h4 class="card-title mb-4">Commentaires</h4>
                  <?php foreach ($commentaires as $key => $comment) { ?>
                  <div class="d-flex mb-4">
@@ -201,30 +210,71 @@
              </div>
          </div>
      </div>
-     <div class="col-lg-4">
+
+     <?php if (!empty($contentDemande)) { ?>
+     <div class="col-lg-12">
          <div class="card">
+             <a href="javascript:void(0);" id="printBtn" class="btn btn-primary waves-effect waves-light"
+                 style="position: absolute;right: 0px;margin-top: 13px;margin-right: 0 px;"><i
+                     class="fas fa-print"></i></a>
              <div class="card-body">
-                 <h4 class="card-title mb-4">Add</h4>
-                 <form method="POST" action="/demande/addObservation">
-                     <div class="d-flex mb-4">
-                         <div class="flex-shrink-0 me-3">
-                         </div>
-                         <div class="flex-grow-1">
-                             <textarea class="form-control" name="observation"></textarea>
-                         </div>
-                         <input type="hidden" name="RefDemande" value="<?= $demande['RefDemande']; ?>">
+                 <?php if (empty($demande['payement'])) { ?>
+                 <a href="/demande/deletefiche/<?= $demande['RefDemande'];  ?>"
+                     class="btn btn-danger waves-effect waves-light"
+                     onclick="return confirm('Voulez-vous vraiment supprimer cet élément ?');"><i
+                         class="fa fa-trash-alt">
+                     </i></a>
+                 <?php } ?>
 
-                     </div>
-                     <button type="submit" class="btn btn-success"><i class="fab fa-telegram-plane ms-1"></i></button>
+                 <div id="printableArea">
 
-                 </form>
+                     <p>REF : <?= $demande['uniqid']; ?></p>
+                     <p class="card-title">
+                         Date : <?= date('d/m/Y', strtotime($demande['date_demande'])); ?>
+                     </p>
+                     <p>
+                         Demadeur : <?= $infoDemandeur['nomEmploye'] . ' ' . $infoDemandeur['prenomEmploye']; ?>
+                     </p>
+                     <h4 class="text-center font-weight-bold">
+                         FICHE DE SORTIE</h4>
+                     <p class="card-title-desc" <div class="table-responsive">
+                     <table class="table table-bordered border-primary mb-0">
+                         <thead>
+                             <tr>
+                                 <th>ENTITE/CLIENT</th>
+                                 <th>MOTIF</th>
+                                 <th>LIEU/LOCALITE</th>
+                                 <th>COMMENTAIRE</th>
+                             </tr>
+                         </thead>
+                         <tbody>
+                             <?php foreach ($contentDemande as $key => $demande) { ?>
+                             <tr>
+                                 <td><?= $demande['client']; ?></td>
+                                 <td><?= $demande['divers']; ?></td>
+                                 <td><?= $demande['adresse']; ?></td>
+                                 <td><?= $demande['commentaire']; ?></td>
+                             </tr>
+                             <?php } ?>
+                         </tbody>
+                         <tfoot>
 
+                             <tr>
+                                 <td colspan="5">
+                                     Visa :
+                                 </td>
+                             </tr>
+                         </tfoot>
+                     </table>
+                 </div>
              </div>
+
          </div>
      </div>
-     <!-- end col -->
  </div>
-
+ <?php } ?>
+ <!-- end col -->
+ </div>
  <!-- Modal -->
  <div class="modal fade" id="newfile" tabindex="-1" role="dialog" aria-labelledby="composemodalTitle"
      aria-hidden="true">
@@ -251,3 +301,75 @@
      </div>
  </div>
  <!--end modalFIle-->
+ <!-- Modal Comment -->
+ <div class="modal fade" id="newObservation" tabindex="-1" role="dialog" aria-labelledby="composemodalTitle"
+     aria-hidden="true">
+     <div class="modal-dialog " role="document">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h5 class="modal-title" id="composemodalTitle"> Nouveau Commentaire</h5>
+                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+             </div>
+             <form method="POST" action="/demande/addFiche">
+                 <div class="modal-body">
+                     <div class="flex-shrink-0 me-3">
+                     </div>
+                     <div class="flex-grow-1">
+                         <textarea class="form-control" name="observation"></textarea>
+                     </div>
+                     <input type="hidden" name="RefDemande" value="<?= $demande['RefDemande']; ?>">
+
+                 </div>
+                 <div class="modal-footer">
+                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                     <button type="submit" class="btn btn-primary">Valider <i
+                             class="fab fa-telegram-plane ms-1"></i></button>
+                 </div>
+             </form>
+
+         </div>
+     </div>
+ </div>
+ <!--end modalComment-->
+ <!-- Modal Fiche de Sortie -->
+ <div class="modal fade" id="newfiche" tabindex="-1" role="dialog" aria-labelledby="composemodalTitle"
+     aria-hidden="true">
+     <div class="modal-dialog " role="document">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h5 class="modal-title" id="composemodalTitle">Ajouter un Element</h5>
+                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+             </div>
+             <form method="POST" action="/demande/addFiche">
+                 <div class="modal-body">
+                     <div>
+                         <label class="typecourrier">
+                             ENTITE/CLIENT</label>
+                         <input class="form-control" name="client">
+                     </div>
+
+                     <div>
+                         <label class="typecourrier">MOTIF</label>
+                         <input class="form-control" name="motif">
+                     </div>
+                     <div>
+                         <label class="typecourrier">LIEU/LOCALITE</label>
+                         <input class="form-control" name="adresse">
+                     </div>
+                     <input type="hidden" name="RefDemande" value="<?= $demande['RefDemande']; ?>">
+                     <div>
+                         <label for="message-text" class="col-form-label">COMMENTAIRE</label>
+                         <textarea name="commentaire" class="form-control" rows="3" required></textarea>
+
+                     </div>
+                 </div>
+                 <div class="modal-footer">
+                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                     <button type="submit" class="btn btn-primary">Valider <i
+                             class="fab fa-telegram-plane ms-1"></i></button>
+                 </div>
+             </form>
+         </div>
+     </div>
+ </div>
+ <!--end modalFIche-->
