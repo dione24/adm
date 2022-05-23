@@ -310,7 +310,7 @@
                  <h5 class="modal-title" id="composemodalTitle"> Nouveau Commentaire</h5>
                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
              </div>
-             <form method="POST" action="/demande/addFiche">
+             <form method="POST" action="/demande/addObservation">
                  <div class="modal-body">
                      <div class="flex-shrink-0 me-3">
                      </div>

@@ -37,15 +37,16 @@
 
                              </td>
                              <td class="td-actions">
-
                                  <a href="/comptabilite/print/<?= $decaissement['RefDecaissement']; ?>" target="_blank"
                                      class="btn btn-success waves-effect waves-light"><i class="fa fa-print"> </i></a>
+                                 <?php if (in_array(4, $permission)) { ?>
                                  <a href="/comptabilite/update/<?= $decaissement['RefDecaissement']; ?>"
                                      class="btn btn-warning waves-effect waves-light"><i class="fa fa-edit"> </i></a>
                                  <a href="/comptabilite/delete/<?= $decaissement['RefDecaissement'];  ?>"
                                      class="btn btn-danger waves-effect waves-light"
                                      onclick="return confirm('Voulez-vous vraiment supprimer cet élément ?');"><i
                                          class="fa fa-trash-alt"> </i></a>
+                                 <?php } ?>
                              </td>
                          </tr>
                          <?php } ?>

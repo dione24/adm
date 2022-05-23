@@ -60,4 +60,24 @@ class ComptabiliteManagerPDO extends \Library\Models\ComptabiliteManager
         $decaissement = $requete->fetch();
         return $decaissement;
     }
+
+    public function updateDecaissement()
+    {
+        $requete = $this->dao->prepare(" UPDATE tbledecaissement SET RefDemande=:RefDemande,datedecaissement=:datedecaissement,nomcomplet=:nomcomplet,motifdecaissement=:motifdecaissement,montantdecaissement=:montantdecaissement,Insert_Users=:Insert_Users WHERE RefDecaissement=:RefDecaissement ");
+        $requete->bindValue(':RefDemande', $_POST['RefDemande'], \PDO::PARAM_INT);
+        $requete->bindValue(':datedecaissement', $_POST['datedecaissement'], \PDO::PARAM_STR);
+        $requete->bindValue(':nomcomplet', $_POST['nomcomplet'], \PDO::PARAM_STR);
+        $requete->bindValue(':motifdecaissement', $_POST['motifdecaissement'], \PDO::PARAM_STR);
+        $requete->bindValue(':montantdecaissement', $_POST['montantdecaissement'], \PDO::PARAM_STR);
+        $requete->bindValue(':Insert_Users', $_SESSION['RefUsers'], \PDO::PARAM_STR);
+        $requete->bindValue(':RefDecaissement', $_POST['RefDecaissement'], \PDO::PARAM_INT);
+        $requete->execute();
+    }
+
+    public function deleteDecaissement($id)
+    {
+        $requete = $this->dao->prepare(" DELETE FROM tbledecaissement WHERE RefDecaissement=:RefDecaissement ");
+        $requete->bindValue(':RefDecaissement', $id);
+        $requete->execute();
+    }
 }

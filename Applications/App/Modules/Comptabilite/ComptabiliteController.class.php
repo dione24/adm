@@ -10,6 +10,14 @@ class ComptabiliteController extends \Library\BackController
 
         $getDecaissement = $this->managers->getManagerOf('Comptabilite')->getDecaissement();
         $this->page->addVar("getDecaissement", $getDecaissement);
+
+
+        $permissions = array();
+        $AllPermissions = $this->managers->getManagerOf('Users')->UserPermission();
+        foreach ($AllPermissions as $key => $value) {
+            $permissions[] = $value['access'];
+        }
+        $this->page->addVar('permission', $permissions);
     }
 
     public function executeNouveau(\Library\HTTPRequest $request)
@@ -41,6 +49,12 @@ class ComptabiliteController extends \Library\BackController
 
         $getDecaissement = $this->managers->getManagerOf('Comptabilite')->getSingleDecaissement($request->getData('id'));
         $this->page->addVar("getDecaissement", $getDecaissement);
+
+        $mesvalidation =  $this->managers->getManagerOf("Demande")->getMesValidations();
+        foreach ($mesvalidation as $key => $validations) {
+            $mesvalidation[$key]['alldemande'] = $this->managers->getManagerOf("Demande")->getDemande($validations['name_approv']);
+        }
+        $this->page->addVar("mesvalidation", $mesvalidation);
 
         if ($request->method() == "POST") {
             $this->managers->getManagerOf("Comptabilite")->updateDecaissement($request);
