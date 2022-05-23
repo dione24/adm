@@ -91,10 +91,15 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle arrow-none" href="/comptabilite/index"
                                     id="topnav-dashboard" role="button">
-                                    <i class="bx bx-money"></i><span key="t-dashboards">Comptabilite</span>
+                                    <i class="fas fa-money-check"></i><span key="t-dashboards"> Decaissements</span>
                                 </a>
                             </li>
-
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="/comptabilite/facturations"
+                                    id="topnav-dashboard" role="button">
+                                    <i class="fas fa-file-invoice"></i><span key="t-dashboards"> Factures</span>
+                                </a>
+                            </li>
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle arrow-none" href="/employe/index"

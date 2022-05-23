@@ -1,11 +1,10 @@
  <div class="row">
      <div class="col-lg-12">
-
          <div class="">
              <div class="table-responsive">
                  <a href="/comptabilite/nouveau" class="btn btn-primary"><i class="fas fa-plus-circle">
-                     </i> Nouveau</a><br><br>
-
+                     </i> Nouveau Decaissement</a>
+                 <br><br>
                  <table id="dataTable" class="table project-list-table table-nowrap align-middle table-borderless">
                      <thead>
                          <tr>
@@ -55,4 +54,5 @@
              </div>
          </div>
      </div>
+
  </div>

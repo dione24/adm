@@ -9,6 +9,14 @@ class EmployeController extends \Library\BackController
         $this->page->addVar("titles", "Liste des Employés");
         $employe = $this->managers->getManagerOf('Employe')->getList();
         $this->page->addVar("employe", $employe);
+
+
+        $permissions = array();
+        $AllPermissions = $this->managers->getManagerOf('Users')->UserPermission();
+        foreach ($AllPermissions as $key => $value) {
+            $permissions[] = $value['access'];
+        }
+        $this->page->addVar('permission', $permissions);
     }
 
     public function executeAdd(\Library\HTTPRequest $request)

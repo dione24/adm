@@ -21,10 +21,10 @@
                             <th>Age</th>
                             <th>Genre</th>
                             <th>Service</th>
-
                             <th>Email</th>
-
+                            <?php if (in_array(7, $permission)) { ?>
                             <th>Actions</th>
+                            <?php } ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,6 +39,8 @@
                             <td><?= $value['name_genre']; ?></td>
                             <td><?= $value['name_service']; ?></td>
                             <td><?= $value['emailEmploye']; ?></td>
+                            <?php if (in_array(7, $permission)) { ?>
+
                             <td class="td-actions">
                                 <a href="/employe/update/<?= $value['RefEmploye']; ?>"
                                     class="btn btn-success waves-effect waves-light"><i class="fa fa-edit"> </i></a>
@@ -47,6 +49,7 @@
                                     onclick="return confirm('Voulez-vous vraiment supprimer cet élément ?');"><i
                                         class="fa fa-trash-alt"> </i></a>
                             </td>
+                            <?php } ?>
                         </tr>
                         <?php } ?>
                     </tbody>

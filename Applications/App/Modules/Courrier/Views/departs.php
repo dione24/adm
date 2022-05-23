@@ -48,7 +48,7 @@
                                     class="btn btn-warning btn-block waves-effect waves-light" data-bs-toggle="modal"
                                     data-bs-target="#composemodal-<?= $value['RefCourrier']; ?>" <?php } ?>>
                                     <i class="fa fa-file"></i><a /></td> <?php } ?>
-                            <?php if (in_array(2, $permission)) { ?>
+                            <?php if (in_array(8, $permission)) { ?>
                             <td class="td-actions">
                                 <a href="/courrier/departs/update/<?= $value['RefCourrier']; ?>"
                                     class="btn btn-success waves-effect waves-light"><i class="fa fa-edit"> </i></a>

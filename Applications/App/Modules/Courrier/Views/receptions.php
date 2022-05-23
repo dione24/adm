@@ -18,10 +18,10 @@
                             <th>Objet</th>
                             <th>Emetteur</th>
                             <th>Date</th>
-                            <?php if (in_array(1, $permission)) { ?>
+                            <?php if (in_array(2, $permission)) { ?>
                             <th>File</th>
                             <?php } ?>
-                            <?php if (in_array(2, $permission)) { ?>
+                            <?php if (in_array(3, $permission)) { ?>
                             <th>Action</th>
                             <?php } ?>
                         </tr>
@@ -36,7 +36,7 @@
                             </td>
                             <td> <?= date("d/m/Y", strtotime($value['date_arrivee']));  ?>
                             </td>
-                            <?php if (in_array(1, $permission)) { ?>
+                            <?php if (in_array(2, $permission)) { ?>
                             <td> <a <?php if (!empty($value['verify'])) { ?>
                                     href="/documents/<?= $value['FileArrive']; ?> " target="_blank"
                                     class="btn btn-primary" <?php } else { ?>
@@ -44,7 +44,7 @@
                                     data-bs-target="#composemodal-<?= $value['RefArrive']; ?>" <?php } ?>>
                                     <i class="fa fa-file"></i><a /></td>
                             <?php } ?>
-                            <?php if (in_array(2, $permission)) { ?>
+                            <?php if (in_array(3, $permission)) { ?>
 
                             <td class="td-actions">
                                 <a href="/courrier/receptions/update/<?= $value['RefArrive']; ?>"
