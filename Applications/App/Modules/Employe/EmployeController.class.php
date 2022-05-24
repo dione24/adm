@@ -17,6 +17,17 @@ class EmployeController extends \Library\BackController
             $permissions[] = $value['access'];
         }
         $this->page->addVar('permission', $permissions);
+
+        $users = $this->managers->getManagerOf('Users')->getList();
+        $this->page->addVar("users", $users);
+
+        if ($request->method() == "POST" && !empty($_POST['RefUsers'])) {
+            $this->managers->getManagerOf('Employe')->linkUsers($request);
+            $_SESSION['message']['number'] = 2;
+            $_SESSION['message']['type'] = 'success';
+            $_SESSION['message']['text'] = 'Opération effectuée.';
+            $this->app->httpResponse()->redirect('/employe/index');
+        }
     }
 
     public function executeAdd(\Library\HTTPRequest $request)

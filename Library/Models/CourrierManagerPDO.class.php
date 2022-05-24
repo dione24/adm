@@ -95,6 +95,16 @@ class CourrierManagerPDO extends \Library\Models\CourrierManager
         return $dataType;
     }
 
+    public function getTypeCourrierList()
+    {
+        $requeteType = $this->dao->prepare("SELECT * FROM type");
+        $requeteType->execute();
+        $dataType = $requeteType->fetchAll();
+        return $dataType;
+    }
+
+
+
     public function addCourrierDepart()
     {
 

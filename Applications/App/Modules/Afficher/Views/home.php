@@ -23,17 +23,17 @@
                 <div class="row">
                     <div class="col-xl-6">
                         <a class="text-muted" data-bs-toggle="modal" data-bs-target="#newreference">
-                            <div class="text-center">
-                                <i class="fas fa-chevron-up h1"></i>
-                                <p class="mt-2 mb-0">Reference </p>
+                            <div class="text-center ">
+                                <i class="far fa-paper-plane h1"></i>
+                                <p class="mt-2 mb-0">Nouvelle Référence </p>
                             </div>
                         </a>
                     </div>
                     <div class="col-xl-6">
                         <a href="/courrier/receptions/add" class=" text-muted">
                             <div class="text-center">
-                                <i class="mdi mdi-folder-outline h1"></i>
-                                <p class="mt-2 mb-0">Reception</p>
+                                <i class="mdi mdi-folder-plus h1"></i>
+                                <p class="mt-2 mb-0">Courrier Arrivé</p>
                             </div>
                         </a>
                     </div>
@@ -45,6 +45,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
+                    <?php if (in_array(9, $permission)) { ?>
                     <div class="col-xl-6">
                         <a href="/demande/index" class="text-muted">
                             <div class="text-center">
@@ -53,18 +54,22 @@
                             </div>
                         </a>
                     </div>
+                    <?php } ?>
+                    <?php if (in_array(10, $permission)) { ?>
                     <div class="col-xl-6">
-                        <a href="/facturations/add" class=" text-muted">
+                        <a href="/comptabilite/facturations" class=" text-muted">
                             <div class="text-center">
-                                <i class="fas fa-money-bill h1"></i>
-                                <p class="mt-2 mb-0">Facturations</p>
+                                <i class="fas fa-file-invoice h1"></i>
+                                <p class="mt-2 mb-0">Factures</p>
                             </div>
                         </a>
                     </div>
+                    <?php } ?>
 
                 </div>
             </div>
         </div>
+
 
     </div>
     <div class="col-xl-8">

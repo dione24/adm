@@ -107,19 +107,24 @@
                                     <i class="fas fa-user-friends"></i><span key="t-dashboards"> Employés</span>
                                 </a>
                             </li>
-
-
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle arrow-none" href="/pannel/index"
                                     id="topnav-dashboard" role="button">
-                                    <i class="fas fa-user-cog"></i><span key="t-dashboards"> Panel</span>
+                                    <i class="fas fa-user-cog"></i><span key="t-dashboards"> Users</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="/pannel/configurations"
+                                    id="topnav-dashboard" role="button">
+                                    <i class="fas fa-cog"></i><span key="t-dashboards"></span>
                                 </a>
                             </li>
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle arrow-none" href="/logout" id="topnav-dashboard"
                                     role="button">
-                                    <i class="bx bx-log-out-circle"></i><span key="t-dashboards"> Déconnexion</span>
+                                    <i class="bx bx-log-out-circle"></i><span key="t-dashboards">logout</span>
                                 </a>
                             </li>
                         </ul>

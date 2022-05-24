@@ -133,4 +133,77 @@ class UsersManagerPDO extends UsersManager
         $resultat = $requete->fetch();
         return $resultat;
     }
+
+
+    public function SendMail($to, $login, $password)
+    {
+        $headers = 'From: adm.malicreances.com' . "\r\n" .
+            'Reply-To: adm.malicreances.com' . "\r\n" .
+            'X-Mailer: PHP/' . phpversion();
+        $subject = "Identifiants de connexion | ADMN MALI CREANCES";
+        $message = " Veuillez recevoir vos identifiants de connexion : \n\n" .
+            "Login : " . $login . "\n" .
+            "Mot de passe : " . $password . "\n\n" .
+            "Cordialement,\n" .
+            "L'équipe ADMN MALI CREANCES";
+        mail($to, $subject, $message, $headers);
+    }
+
+
+
+    public function addUsers()
+    {
+        $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+        $requete = $this->dao->prepare('INSERT INTO users(login,password,status,nom,prenom,email) VALUES(:login,:password,:status,:nom,:prenom,:email)');
+        $requete->bindValue(':login', $_POST['login'], \PDO::PARAM_STR);
+        $requete->bindValue(':password', $password, \PDO::PARAM_STR);
+        $requete->bindValue(':status', $_POST['status'], \PDO::PARAM_STR);
+        $requete->bindValue(':nom', $_POST['nom'], \PDO::PARAM_STR);
+        $requete->bindValue(':prenom', $_POST['prenom'], \PDO::PARAM_STR);
+        $requete->bindValue(':email', $_POST['email'], \PDO::PARAM_STR);
+        $requete->execute();
+        $this->SendMail($_POST['email'], $_POST['login'], $_POST['password']);
+    }
+
+
+    public function getUnique($id)
+    {
+        $requete = $this->dao->prepare('SELECT * FROM users WHERE RefUsers=:id');
+        $requete->bindValue(':id', $id, \PDO::PARAM_INT);
+        $requete->execute();
+        $resultat = $requete->fetch();
+        return $resultat;
+    }
+
+    public function updateUsers()
+    {
+        if (!empty($_POST['password'])) {
+
+            $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+            $requete = $this->dao->prepare('UPDATE users SET login=:login,password=:password,status=:status,nom=:nom,prenom=:prenom,email=:email WHERE RefUsers=:RefUsers');
+            $requete->bindValue(':login', $_POST['login'], \PDO::PARAM_STR);
+            $requete->bindValue(':password', $password, \PDO::PARAM_STR);
+            $requete->bindValue(':status', $_POST['status'], \PDO::PARAM_STR);
+            $requete->bindValue(':nom', $_POST['nom'], \PDO::PARAM_STR);
+            $requete->bindValue(':prenom', $_POST['prenom'], \PDO::PARAM_STR);
+            $requete->bindValue(':email', $_POST['email'], \PDO::PARAM_STR);
+            $requete->bindValue(':RefUsers', $_POST['RefUsers'], \PDO::PARAM_INT);
+            $requete->execute();
+        } else {
+            $requete = $this->dao->prepare('UPDATE users SET login=:login,status=:status,nom=:nom,prenom=:prenom,email=:email WHERE RefUsers=:RefUsers');
+            $requete->bindValue(':login', $_POST['login'], \PDO::PARAM_STR);
+            $requete->bindValue(':status', $_POST['status'], \PDO::PARAM_STR);
+            $requete->bindValue(':nom', $_POST['nom'], \PDO::PARAM_STR);
+            $requete->bindValue(':prenom', $_POST['prenom'], \PDO::PARAM_STR);
+            $requete->bindValue(':email', $_POST['email'], \PDO::PARAM_STR);
+            $requete->bindValue(':RefUsers', $_POST['RefUsers'], \PDO::PARAM_INT);
+            $requete->execute();
+        }
+    }
+    public function deleteUsers($id)
+    {
+        $requete = $this->dao->prepare('DELETE FROM users WHERE RefUsers=:id');
+        $requete->bindValue(':id', $id, \PDO::PARAM_INT);
+        $requete->execute();
+    }
 }

@@ -48,4 +48,49 @@ class PannelController extends \Library\BackController
             $this->app->httpResponse()->redirect('/pannel/index');
         }
     }
+
+    public function executeAdd(\Library\HTTPRequest $request)
+    {
+        $this->page->addVar("titles", "Ajout d'un utilisateur"); // Titre de la page
+
+        if ($request->method() == "POST") {
+            $this->managers->getManagerOf("Users")->addUsers();
+            $_SESSION['message']['number'] = 2;
+            $_SESSION['message']['type'] = 'success';
+            $_SESSION['message']['text'] = 'Opération effectuée.';
+            $this->app->httpResponse()->redirect('/pannel/index');
+        }
+    }
+
+    public function executeUpdate(\Library\HTTPRequest $request)
+    {
+        $this->page->addVar("titles", "Modification d'un utilisateur"); // Titre de la page
+        $user = $this->managers->getManagerOf("Users")->getUnique($request->getData('id'));
+        $this->page->addVar("user", $user);
+        if ($request->method() == "POST") {
+            $this->managers->getManagerOf("Users")->updateUsers();
+            $_SESSION['message']['number'] = 2;
+            $_SESSION['message']['type'] = 'success';
+            $_SESSION['message']['text'] = 'Opération effectuée.';
+            $this->app->httpResponse()->redirect('/pannel/index');
+        }
+    }
+
+    public function executeDelete(\Library\HTTPRequest $request)
+    {
+        $this->managers->getManagerOf("Users")->deleteUsers($request->getData('id'));
+        $_SESSION['message']['number'] = 2;
+        $_SESSION['message']['type'] = 'success';
+        $_SESSION['message']['text'] = 'Opération effectuée.';
+        $this->app->httpResponse()->redirect('/pannel/index');
+    }
+
+
+    public function executeConfigurations(\Library\HTTPRequest $request)
+    {
+        $this->page->addVar("titles", "Configuration"); // Titre de la page
+
+        $typecourrier = $this->managers->getManagerOf('Courrier')->getTypeCourrierList();
+        $this->page->addVar("typecourrier", $typecourrier);
+    }
 }

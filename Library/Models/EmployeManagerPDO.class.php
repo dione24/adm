@@ -75,4 +75,12 @@ class EmployeManagerPDO extends \Library\Models\EmployeManager
         $requete->bindValue(':RefEmploye', $id, \PDO::PARAM_STR);
         $requete->execute();
     }
+
+    public function linkUsers()
+    {
+        $requete = $this->dao->prepare("UPDATE tbleemploye SET RefUsers=:RefUsers WHERE RefEmploye=:RefEmploye");
+        $requete->bindValue(':RefUsers', $_POST['RefUsers'], \PDO::PARAM_STR);
+        $requete->bindValue(':RefEmploye', $_POST['RefEmploye'], \PDO::PARAM_STR);
+        $requete->execute();
+    }
 }

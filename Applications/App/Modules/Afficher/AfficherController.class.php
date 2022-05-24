@@ -20,5 +20,12 @@ class AfficherController extends \Library\BackController
         }
         $mesreferences = $this->managers->getManagerOf('Courrier')->getMesReferences();
         $this->page->addVar("mesreferences", $mesreferences);
+
+        $permissions = array();
+        $AllPermissions = $this->managers->getManagerOf('Users')->UserPermission();
+        foreach ($AllPermissions as $key => $value) {
+            $permissions[] = $value['access'];
+        }
+        $this->page->addVar('permission', $permissions);
     }
 }

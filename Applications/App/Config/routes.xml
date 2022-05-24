@@ -47,9 +47,11 @@
     <route url="/comptabilite/updateFacturations/([0-9]+)" module="Comptabilite" vars="id" action="updateFacturations"/>
     <route url="/comptabilite/deleteFacturations/([0-9]+)" module="Comptabilite" vars="id" action="deleteFacturations"/>
 
-
-
     <route url="/logout" module="Connexion" action="logout"/>
     <route url="/pannel/index" module="Pannel" action="index"/>
+    <route url="/pannel/add" module="Pannel" action="add"/>
+    <route url="/pannel/update/([0-9]+)" module="Pannel" vars="id" action="update"/>
+    <route url="/pannel/delete/([0-9]+)" module="Pannel" vars="id" action="delete"/>
+    <route url="/pannel/configurations" module="Pannel" action="configurations"/>
 
 </routes>
