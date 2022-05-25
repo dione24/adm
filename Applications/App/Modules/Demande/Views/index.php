@@ -166,7 +166,7 @@
 
                                                          <td class="td-actions">
 
-                                                             <?php if (in_array($validation['statut_demande'], $permission) && $validation['statut_demande'] != ($validation['lastStatus'] - 1)) { ?>
+                                                             <?php if (in_array($validation['statut_demande'], $permissionsStatut) && $validation['statut_demande'] != ($validation['lastStatus'] - 1)) { ?>
                                                              <a href="/demande/approv/<?= $validation['RefDemande']; ?>/<?= $validation['statut_demande']; ?>"
                                                                  class="btn btn-success waves-effect waves-light"><i
                                                                      class="fas fa-arrow-alt-circle-right"> </i></a>

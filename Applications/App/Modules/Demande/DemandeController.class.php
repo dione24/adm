@@ -22,24 +22,24 @@ class DemandeController extends \Library\BackController
         foreach ($mesvalidation as $key => $validations) {
             $mesvalidation[$key]['alldemande'] = $this->managers->getManagerOf("Demande")->getDemande($validations['name_approv']);
         }
-        $permissions = array();
-        $AllPermissions = $this->managers->getManagerOf('Demande')->getMesValidations();
-        foreach ($AllPermissions as $key => $value) {
-            $permissions[] = $value['name_approv'];
+        $permissionsStatut = array();
+        $AllPermissionsStautut = $this->managers->getManagerOf('Demande')->getMesValidations();
+        foreach ($AllPermissionsStautut as $key1 => $valuestatut) {
+            $permissionsStatut[] = $valuestatut['name_approv'];
         }
-        $this->page->addVar('permission', $permissions);
+        $this->page->addVar('permissionsStatut', $permissionsStatut);
         $this->page->addVar("mesvalidation", $mesvalidation);
         $nombreStatutDemande = $this->managers->getManagerOf("Demande")->getNombreStatutDemande();
         $this->page->addVar("nombreStatutDemande", $nombreStatutDemande);
 
 
 
-        $droitDecaissement = array();
-        $AllPermissionsEncaissement = $this->managers->getManagerOf('Users')->UserPermission();
-        foreach ($AllPermissionsEncaissement as $key => $value) {
-            $droitDecaissement[] = $value['access'];
+        $permissions = array();
+        $AllPermissions = $this->managers->getManagerOf('Users')->UserPermission();
+        foreach ($AllPermissions as $key => $value) {
+            $permissions[] = $value['access'];
         }
-        $this->page->addVar('droitDecaissement', $droitDecaissement);
+        $this->page->addVar('permission', $permissions);
     }
 
     public function executeDisplay(\Library\HTTPRequest $request)
