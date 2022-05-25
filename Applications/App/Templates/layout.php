@@ -15,6 +15,7 @@
     <link href="/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
     <link href="/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet"
         type="text/css" />
+    <link href="/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js">
     </script>
     <style type="text/css" media="print">
@@ -22,7 +23,6 @@
         size: landscape;
     }
     </style>
-
 
 </head>
 
@@ -185,11 +185,11 @@
 
     <!-- JAVASCRIPT -->
     <script src="/libs/jquery/jquery.min.js"></script>
+    <script src="/libs/sweetalert2/sweetalert2.min.js"></script>
     <script src="/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/libs/metismenu/metisMenu.min.js"></script>
     <script src="/libs/simplebar/simplebar.min.js"></script>
     <script src="/libs/node-waves/waves.min.js"></script>
-    <script src="/js/sweetalert2/sweetalert2.min.js"></script>
 
 
     <?php if (!empty($_SESSION['message']) && $_SESSION['message']['number'] > 0) { ?>
@@ -210,16 +210,6 @@
     </script>
     <?php $_SESSION['message']['number']--;
     } ?>
-    <script type="text/javascript" src="/js/idle-timer/idle-timer.min.js"></script>
-    <script>
-    $(document).ready(function() {
-        $(document).idleTimer(960000);
-    });
-    $(document).on("idle.idleTimer", function(event, elem, obj) {
-        window.location = "/logout";
-    });
-    </script>
-
     <script>
     $(document).ready(function() {
         $('#dataTable').DataTable({
@@ -232,14 +222,6 @@
         });
     });
     </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
-    <script>
-    $(document).ready(function() {
-        $('.summernote').summernote();
-        $('#summernote').summernote();
-    });
-    </script>
     <script>
     function copyToClipboard(elementId) {
         var aux = document.createElement("input");
@@ -250,8 +232,6 @@
         document.body.removeChild(aux);
     }
     </script>
-
-
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
