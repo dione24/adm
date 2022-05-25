@@ -189,6 +189,36 @@
     <script src="/libs/metismenu/metisMenu.min.js"></script>
     <script src="/libs/simplebar/simplebar.min.js"></script>
     <script src="/libs/node-waves/waves.min.js"></script>
+    <script src="/js/sweetalert2/sweetalert2.min.js"></script>
+
+
+    <?php if (!empty($_SESSION['message']) && $_SESSION['message']['number'] > 0) { ?>
+    <script>
+    $(function() {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 5000
+        });
+
+        Toast.fire({
+            type: '<?= $_SESSION['message']['type']; ?>',
+            title: '<?= $_SESSION['message']['text']; ?>'
+        });
+    });
+    </script>
+    <?php $_SESSION['message']['number']--;
+    } ?>
+    <script type="text/javascript" src="/js/idle-timer/idle-timer.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $(document).idleTimer(960000);
+    });
+    $(document).on("idle.idleTimer", function(event, elem, obj) {
+        window.location = "/logout";
+    });
+    </script>
 
     <script>
     $(document).ready(function() {
