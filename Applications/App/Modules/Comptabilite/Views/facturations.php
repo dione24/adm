@@ -2,8 +2,15 @@
      <div class="col-lg-12">
          <div class="">
              <div class="table-responsive">
+                 <?php if (in_array(13, $permission)) { ?>
                  <a href="/comptabilite/addFacturations" class="btn btn-primary"><i class="fas fa-plus-circle">
                      </i> Ajouter Une Facture </a>
+                 <?php } ?>
+                 <?php if (in_array(14, $permission)) { ?>
+
+                 <a href="/comptabilite/fournisseurs" class="btn btn-success"><i class="fas fa-cog">
+                     </i> Gestion des Fournisseurs </a>
+                 <?php } ?>
                  <br><br>
                  <table id="dataTable" class="table project-list-table table-nowrap align-middle table-borderless">
                      <thead>

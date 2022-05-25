@@ -296,4 +296,79 @@ class DemandeManagerPDO extends \Library\Models\DemandeManager
         $requete->bindValue(':RefDemande', $id, \PDO::PARAM_INT);
         $requete->execute();
     }
+
+    public function addTypeDemande()
+    {
+        $requete = $this->dao->prepare("INSERT INTO typedemande (name_demande) VALUES (:name_demande)");
+        $requete->bindValue(':name_demande', $_POST['name_demande'], \PDO::PARAM_STR);
+        $requete->execute();
+    }
+
+    public function editTypeDemande()
+    {
+        $requete = $this->dao->prepare("UPDATE typedemande SET name_demande=:name_demande WHERE RefTypeDemande=:RefTypeDemande");
+        $requete->bindValue(':RefTypeDemande', $_POST['RefTypeDemande'], \PDO::PARAM_INT);
+        $requete->bindValue(':name_demande', $_POST['name_demande'], \PDO::PARAM_STR);
+        $requete->execute();
+    }
+    public function getUniqueTypeDemande($id)
+    {
+        $requete = $this->dao->prepare("SELECT * FROM typedemande WHERE RefTypeDemande=:RefTypeDemande");
+        $requete->bindValue(':RefTypeDemande', $id, \PDO::PARAM_INT);
+        $requete->execute();
+        $resultat = $requete->fetch();
+        return $resultat;
+    }
+
+    public function deleteTypeDemande($id)
+    {
+        $requete = $this->dao->prepare("DELETE FROM typedemande WHERE RefTypeDemande=:RefTypeDemande");
+        $requete->bindValue(':RefTypeDemande', $id, \PDO::PARAM_INT);
+        $requete->execute();
+    }
+
+    public function getStatutDemandeList()
+    {
+        $requete = $this->dao->prepare("SELECT * FROM statut_demande INNER JOIN typedemande ON typedemande.RefTypeDemande=statut_demande.RefTypeDemande");
+        $requete->execute();
+        $resultat = $requete->fetchAll();
+        return $resultat;
+    }
+
+
+    public function getUniqueStatutDemande($id)
+    {
+        $requete = $this->dao->prepare("SELECT * FROM statut_demande WHERE RefStatutDemande=:RefStatutDemande");
+        $requete->bindValue(':RefStatutDemande', $id, \PDO::PARAM_INT);
+        $requete->execute();
+        $resultat = $requete->fetch();
+        return $resultat;
+    }
+
+
+    public function editStatutDemande()
+    {
+        $requete = $this->dao->prepare("UPDATE statut_demande SET name_statut_demande=:name_statut_demande,color=:color,RefTypeDemande=:RefTypeDemande WHERE RefStatutDemande=:RefStatutDemande");
+        $requete->bindValue(':RefStatutDemande', $_POST['RefStatutDemande'], \PDO::PARAM_INT);
+        $requete->bindValue(':name_statut_demande', $_POST['name_statut_demande'], \PDO::PARAM_STR);
+        $requete->bindValue(':color', $_POST['color'], \PDO::PARAM_STR);
+        $requete->bindValue(':RefTypeDemande', $_POST['RefTypeDemande'], \PDO::PARAM_INT);
+        $requete->execute();
+    }
+
+    public function deleteStatutDemande($id)
+    {
+        $requete = $this->dao->prepare("DELETE FROM statut_demande WHERE RefStatutDemande=:RefStatutDemande");
+        $requete->bindValue(':RefStatutDemande', $id, \PDO::PARAM_INT);
+        $requete->execute();
+    }
+
+    public function addStatutDemande()
+    {
+        $requete = $this->dao->prepare("INSERT INTO statut_demande (name_statut_demande,color,RefTypeDemande) VALUES (:name_statut_demande,:color,:RefTypeDemande)");
+        $requete->bindValue(':name_statut_demande', $_POST['name_statut_demande'], \PDO::PARAM_STR);
+        $requete->bindValue(':color', $_POST['color'], \PDO::PARAM_STR);
+        $requete->bindValue(':RefTypeDemande', $_POST['RefTypeDemande'], \PDO::PARAM_INT);
+        $requete->execute();
+    }
 }

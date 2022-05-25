@@ -67,18 +67,24 @@
                                     <i class="bx bx-home-circle me-2"></i><span key="t-dashboards">Accueil</span>
                                 </a>
                             </li>
+                            <?php if (in_array(15, $permission)) { ?>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle arrow-none" href="/courrier/receptions"
                                     id="topnav-dashboard" role="button">
                                     <i class="fas fa-folder-minus"></i><span key="t-dashboards"> Receptions</span>
                                 </a>
                             </li>
+                            <?php } ?>
+                            <?php if (in_array(16, $permission)) { ?>
+
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle arrow-none" href="/courrier/departs"
                                     id="topnav-dashboard" role="button">
                                     <i class="fas fa-folder-plus"></i><span key="t-dashboards"> Departs</span>
                                 </a>
                             </li>
+                            <?php } ?>
+                            <?php if (in_array(17, $permission)) { ?>
 
 
                             <li class="nav-item dropdown">
@@ -87,6 +93,8 @@
                                     <i class="fas fa-question-circle"></i><span key="t-dashboards"> Demandes</span>
                                 </a>
                             </li>
+                            <?php } ?>
+                            <?php if (in_array(18, $permission)) { ?>
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle arrow-none" href="/comptabilite/index"
@@ -94,32 +102,40 @@
                                     <i class="fas fa-money-check"></i><span key="t-dashboards"> Decaissements</span>
                                 </a>
                             </li>
+                            <?php } ?>
+                            <?php if (in_array(19, $permission)) { ?>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle arrow-none" href="/comptabilite/facturations"
                                     id="topnav-dashboard" role="button">
                                     <i class="fas fa-file-invoice"></i><span key="t-dashboards"> Factures</span>
                                 </a>
                             </li>
-
+                            <?php } ?>
+                            <?php if (in_array(20, $permission)) { ?>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle arrow-none" href="/employe/index"
                                     id="topnav-dashboard" role="button">
                                     <i class="fas fa-user-friends"></i><span key="t-dashboards"> Employés</span>
                                 </a>
                             </li>
+                            <?php } ?>
+                            <?php if (in_array(21, $permission)) { ?>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle arrow-none" href="/pannel/index"
                                     id="topnav-dashboard" role="button">
                                     <i class="fas fa-user-cog"></i><span key="t-dashboards"> Users</span>
                                 </a>
                             </li>
+                            <?php } ?>
+                            <?php if (in_array(22, $permission)) { ?>
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle arrow-none" href="/pannel/configurations"
+                                <a class="nav-link dropdown-toggle arrow-none" href="/pannel/configurations/index"
                                     id="topnav-dashboard" role="button">
                                     <i class="fas fa-cog"></i><span key="t-dashboards"></span>
                                 </a>
                             </li>
+                            <?php } ?>
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle arrow-none" href="/logout" id="topnav-dashboard"

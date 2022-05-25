@@ -61,6 +61,12 @@ class DemandeController extends \Library\BackController
 
         $contentDemande = $this->managers->getManagerOf("Demande")->getContentDemande($demande['RefDemande']);
         $this->page->addVar("contentDemande", $contentDemande);
+        $permissions = array();
+        $AllPermissions = $this->managers->getManagerOf('Users')->UserPermission();
+        foreach ($AllPermissions as $key => $value) {
+            $permissions[] = $value['access'];
+        }
+        $this->page->addVar('permission', $permissions);
     }
 
     public function executeAddObservation(\Library\HTTPRequest $request)
@@ -100,6 +106,12 @@ class DemandeController extends \Library\BackController
             $_SESSION['message']['text'] = 'Opération effectuée.';
             $this->app()->httpResponse()->redirect('/demande/index');
         }
+        $permissions = array();
+        $AllPermissions = $this->managers->getManagerOf('Users')->UserPermission();
+        foreach ($AllPermissions as $key => $value) {
+            $permissions[] = $value['access'];
+        }
+        $this->page->addVar('permission', $permissions);
     }
 
     public function executeDelete(\Library\HTTPRequest $request)

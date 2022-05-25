@@ -236,4 +236,39 @@ class CourrierManagerPDO extends \Library\Models\CourrierManager
             }
         }
     }
+
+
+    public function getUniqueTypeCourrier($id)
+    {
+        $requeteType = $this->dao->prepare("SELECT * FROM type WHERE RefType=:RefType");
+        $requeteType->bindValue(':RefType', $id, \PDO::PARAM_INT);
+        $requeteType->execute();
+        $displayType = $requeteType->fetch();
+        return $displayType;
+    }
+
+
+    public function addTypeCourrier()
+    {
+        $requeteAddType = $this->dao->prepare("INSERT INTO type (name_type,shortName) VALUES (:name_type,:shortName)");
+        $requeteAddType->bindValue(':name_type', $_POST['name_type'], \PDO::PARAM_STR);
+        $requeteAddType->bindValue(':shortName', $_POST['shortName'], \PDO::PARAM_STR);
+        $requeteAddType->execute();
+    }
+
+    public function updateTypeCourrier()
+    {
+        $requeteType = $this->dao->prepare("UPDATE type SET name_type=:name_type,shortName=:shortName WHERE RefType=:RefType");
+        $requeteType->bindValue(':name_type', $_POST['name_type'], \PDO::PARAM_STR);
+        $requeteType->bindValue(':shortName', $_POST['shortName'], \PDO::PARAM_STR);
+        $requeteType->bindValue(':RefType', $_POST['RefType'], \PDO::PARAM_INT);
+        $requeteType->execute();
+    }
+
+    public function deleteTypeCourrier($id)
+    {
+        $requeteType = $this->dao->prepare("DELETE FROM type WHERE RefType=:RefType");
+        $requeteType->bindValue(':RefType', $id, \PDO::PARAM_INT);
+        $requeteType->execute();
+    }
 }

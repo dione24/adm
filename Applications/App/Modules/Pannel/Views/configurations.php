@@ -4,9 +4,9 @@
             <div class="card-body">
                 <h4 class="card-title">Liste Type Courrier</h4>
 
-
                 <div class="table-responsive">
-                    <button class="btn btn-success"><i class="fas fa-plus"></i></button></br></br>
+                    <a href="/pannel/configurations/typercourrier/add" class="btn btn-success"><i
+                            class="fas fa-plus"></i></a></br></br>
                     <table class="table mb-0">
                         <thead class="table-light">
                             <tr>
@@ -23,9 +23,43 @@
                                 <td scope="row"><?= $type['name_type']; ?></td>
                                 <td scope="row"><?= $type['shortName']; ?></td>
                                 <td scope="row">
-                                    <a href="/pannel/configurations/type/edit/<?= $type['RefType']; ?>"
+                                    <a href="/pannel/configurations/typecourrier/edit/<?= $type['RefType']; ?>"
                                         class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                                    <a href="/pannel/configurations/type/delete/<?= $type['RefType']; ?>"
+                                    <a href="/pannel/configurations/typecourrier/delete/<?= $type['RefType']; ?>"
+                                        class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            <?php } ?>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Liste Type Demande</h4>
+                <div class="table-responsive">
+                    <a href="/pannel/configurations/typedemande/add" class="btn btn-success"><i
+                            class="fas fa-plus"></i></a></br></br>
+                    <table class="table mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Nom</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($typedemandes as $typedemande) { ?>
+                            <tr>
+                                <td scope="row"><?= $typedemande['RefTypeDemande']; ?></td>
+                                <td scope="row"><?= $typedemande['name_demande']; ?></td>
+                                <td scope="row">
+                                    <a href="/pannel/configurations/typedemande/edit/<?= $typedemande['RefTypeDemande']; ?>"
+                                        class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                                    <a href="/pannel/configurations/typedemande/delete/<?= $typedemande['RefTypeDemande']; ?>"
                                         class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
@@ -43,51 +77,84 @@
     <div class="col-xl-6">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-4">Horizontal Form Layout</h4>
+                <h4 class="card-title">Liste Service</h4>
+                <div class="table-responsive">
+                    <a href="/pannel/configurations/typeservice/add" class="btn btn-success"><i
+                            class="fas fa-plus"></i></a></br></br>
+                    <table class="table mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Nom</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($typeservices as $typeservice) { ?>
+                            <tr>
+                                <td scope="row"><?= $typeservice['RefService']; ?></td>
+                                <td scope="row"><?= $typeservice['name_service']; ?></td>
+                                <td scope="row">
+                                    <a href="/pannel/configurations/typeservice/edit/<?= $typeservice['RefService']; ?>"
+                                        class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                                    <a href="/pannel/configurations/typeservice/delete/<?= $typeservice['RefService']; ?>"
+                                        class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            <?php } ?>
 
-                <form>
-                    <div class="row mb-4">
-                        <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">First name</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="horizontal-firstname-input"
-                                placeholder="Enter Your ">
-                        </div>
-                    </div>
-                    <div class="row mb-4">
-                        <label for="horizontal-email-input" class="col-sm-3 col-form-label">Email</label>
-                        <div class="col-sm-9">
-                            <input type="email" class="form-control" id="horizontal-email-input"
-                                placeholder="Enter Your Email ID">
-                        </div>
-                    </div>
-                    <div class="row mb-4">
-                        <label for="horizontal-password-input" class="col-sm-3 col-form-label">Password</label>
-                        <div class="col-sm-9">
-                            <input type="password" class="form-control" id="horizontal-password-input"
-                                placeholder="Enter Your Password">
-                        </div>
-                    </div>
+                        </tbody>
+                    </table>
+                </div>
 
-                    <div class="row justify-content-end">
-                        <div class="col-sm-9">
-
-                            <div class="form-check mb-4">
-                                <input class="form-check-input" type="checkbox" id="horizontalLayout-Check">
-                                <label class="form-check-label" for="horizontalLayout-Check">
-                                    Remember me
-                                </label>
-                            </div>
-
-                            <div>
-                                <button type="submit" class="btn btn-primary w-md">Submit</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
             </div>
-            <!-- end card body -->
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Liste Statut Demande</h4>
+                <div class="table-responsive">
+                    <a href="/pannel/configurations/statutdemande/add" class="btn btn-success"><i
+                            class="fas fa-plus"></i></a></br></br>
+                    <table id="dataTable" class="table mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Nom</th>
+                                <th>Color</th>
+                                <th>Type Demande</th>
+
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($statutdemandes as $statutdemande) { ?>
+                            <tr>
+                                <td scope="row"><?= $statutdemande['RefStatutDemande']; ?></td>
+                                <td scope="row"><?= $statutdemande['name_statut_demande']; ?></td>
+                                <td><button
+                                        class="btn btn-<?= $statutdemande['color']; ?>"><?= $statutdemande['color']; ?></button>
+                                </td>
+                                <td><?= $statutdemande['name_demande']; ?></td>
+                                <td scope="row">
+                                    <a href="/pannel/configurations/statutdemande/edit/<?= $statutdemande['RefStatutDemande']; ?>"
+                                        class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                                    <a href="/pannel/configurations/statutdemande/delete/<?= $statutdemande['RefStatutDemande']; ?>"
+                                        class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            <?php } ?>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
         </div>
         <!-- end card -->
     </div>
+
+
+
     <!-- end col -->
+
 </div>

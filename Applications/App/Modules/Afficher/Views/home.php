@@ -21,6 +21,7 @@
                 <h4 class="card-title mb-6">Accès rapide
                 </h4>
                 <div class="row">
+                    <?php if (in_array(23, $permission)) { ?>
                     <div class="col-xl-6">
                         <a class="text-muted" data-bs-toggle="modal" data-bs-target="#newreference">
                             <div class="text-center ">
@@ -29,6 +30,8 @@
                             </div>
                         </a>
                     </div>
+                    <?php } ?>
+                    <?php if (in_array(24, $permission)) { ?>
                     <div class="col-xl-6">
                         <a href="/courrier/receptions/add" class=" text-muted">
                             <div class="text-center">
@@ -37,6 +40,7 @@
                             </div>
                         </a>
                     </div>
+                    <?php } ?>
 
                 </div>
             </div>
@@ -94,7 +98,7 @@
             <?php } ?>
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title mb-4"> Mes References </h4>
+                    <h4 class="card-title mb-4"> Mes Références </h4>
                     <div class="table-responsive">
                         <table id="dataTable" class="table align-middle table-nowrap mb-0">
                             <thead class="table-light">

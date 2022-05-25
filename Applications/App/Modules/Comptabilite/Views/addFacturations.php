@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title mb-4">Enregistrer une Nouvelle Facture</h4>
@@ -97,77 +97,5 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title mb-4">Enregistrer un Fournisseur</h4>
-                <form method="POST">
-                    <div class="row mb-4">
-                        <label for="projectname" class="col-form-label col-lg-2">Nom</label>
-                        <div class="col-lg-10">
-                            <input id="projectname" name="nomfournisseur" type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="row mb-4">
-                        <label for="projectname" class="col-form-label col-lg-2">Adresse</label>
-                        <div class="col-lg-10">
-                            <input id="projectname" name="adressefournisseur" type="text" class="form-control"
-                                autocomplete="OFF">
-                        </div>
-                    </div>
 
-
-                    <div class="row mb-4">
-                        <label for="projectname" class="col-form-label col-lg-2">RC</label>
-                        <div class="col-lg-10">
-                            <input id="projectname" name="rcfournisseur" type="text" class="form-control"
-                                autocomplete="OFF">
-                        </div>
-                    </div>
-
-
-                    <div class="row mb-4">
-                        <label for="projectname" class="col-form-label col-lg-2">NIF</label>
-                        <div class="col-lg-10">
-                            <input id="projectname" name="niffournisseur" type="text" class="form-control"
-                                autocomplete="OFF">
-                        </div>
-                    </div>
-
-
-                    <div class="row mb-4">
-                        <label for="projectbudget" class="col-form-label col-lg-2">Banque </label>
-                        <div class="col-lg-10">
-                            <input id="projectbudget" name="banquefournisseur" type="text" class="form-control"
-                                autocomplete="OFF">
-                        </div>
-                    </div>
-                    <div class="row mb-4">
-                        <label for="projectbudget" class="col-form-label col-lg-2">Contact</label>
-                        <div class="col-lg-10">
-                            <input id="projectbudget" name="contactfournisseur" type="text" class="form-control"
-                                autocomplete="OFF">
-                        </div>
-                    </div>
-
-                    <div class="row mb-4">
-                        <label for="projectbudget" class="col-form-label col-lg-2">Email </label>
-                        <div class="col-lg-10">
-                            <input id="projectbudget" name="emailfournisseur" type="text" class="form-control"
-                                autocomplete="OFF">
-                        </div>
-                    </div>
-
-
-
-                    <div class="row justify-content-end">
-                        <div class="col-lg-10">
-                            <button type="submit" class="btn btn-primary">Valider</button>
-                            <a href="/comptabilite/facturations" class="btn btn-danger">Annuler</a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 </div>

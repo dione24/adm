@@ -47,11 +47,34 @@
     <route url="/comptabilite/updateFacturations/([0-9]+)" module="Comptabilite" vars="id" action="updateFacturations"/>
     <route url="/comptabilite/deleteFacturations/([0-9]+)" module="Comptabilite" vars="id" action="deleteFacturations"/>
 
+    <route url="/comptabilite/fournisseurs" module="Comptabilite" action="fournisseurs"/>
+    <route url="/comptabilite/fournisseurs/add" module="Comptabilite" action="addFournisseur"/>
+    <route url="/comptabilite/fournisseurs/update/([0-9]+)" module="Comptabilite" vars="id" action="updateFournisseur"/>
+    <route url="/comptabilite/fournisseurs/delete/([0-9]+)" module="Comptabilite" vars="id" action="deleteFournisseur"/>
+
+
+
     <route url="/logout" module="Connexion" action="logout"/>
     <route url="/pannel/index" module="Pannel" action="index"/>
     <route url="/pannel/add" module="Pannel" action="add"/>
     <route url="/pannel/update/([0-9]+)" module="Pannel" vars="id" action="update"/>
     <route url="/pannel/delete/([0-9]+)" module="Pannel" vars="id" action="delete"/>
-    <route url="/pannel/configurations" module="Pannel" action="configurations"/>
+    <route url="/pannel/configurations/index" module="Pannel" action="configurations"/>
+    <route url="/pannel/configurations/typercourrier/add" module="Pannel" action="AddTypeCourrier"/>
+    <route url="/pannel/configurations/typecourrier/edit/([0-9]+)" module="Pannel" vars="id" action="edittypecourrier"/>
+    <route url="/pannel/configurations/typecourrier/delete/([0-9]+)" module="Pannel" vars="id" action="deletetypecourrier"/>
+
+    <route url="/pannel/configurations/typedemande/add" module="Pannel" action="addTypeDemande"/>
+    <route url="/pannel/configurations/typedemande/edit/([0-9]+)" module="Pannel" vars="id" action="editTypeDemande"/>
+    <route url="/pannel/configurations/typedemande/delete/([0-9]+)" module="Pannel" vars="id" action="deleteTypeDemande"/>
+
+    <route url="/pannel/configurations/typeservice/add" module="Pannel" action="addService"/>
+    <route url="/pannel/configurations/typeservice/edit/([0-9]+)" module="Pannel" vars="id" action="editService"/>
+    <route url="/pannel/configurations/typeservice/delete/([0-9]+)" module="Pannel" vars="id" action="deleteService"/>
+
+
+    <route url="/pannel/configurations/statutdemande/add" module="Pannel" action="addStatutDemande"/>
+    <route url="/pannel/configurations/statutdemande/edit/([0-9]+)" module="Pannel" vars="id" action="editStatutDemande"/>
+    <route url="/pannel/configurations/statutdemande/delete/([0-9]+)" module="Pannel" vars="id" action="deleteStatutDemande"/>
 
 </routes>

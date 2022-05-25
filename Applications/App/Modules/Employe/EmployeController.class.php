@@ -47,6 +47,12 @@ class EmployeController extends \Library\BackController
             $_SESSION['message']['text'] = 'Opération effectuée.';
             $this->app()->httpResponse()->redirect('/employe/index');
         }
+        $permissions = array();
+        $AllPermissions = $this->managers->getManagerOf('Users')->UserPermission();
+        foreach ($AllPermissions as $key => $value) {
+            $permissions[] = $value['access'];
+        }
+        $this->page->addVar('permission', $permissions);
     }
     public function executeUpdate(\Library\HTTPRequest $request)
     {
@@ -68,6 +74,12 @@ class EmployeController extends \Library\BackController
             $_SESSION['message']['text'] = 'Opération effectuée.';
             $this->app()->httpResponse()->redirect('/employe/index');
         }
+        $permissions = array();
+        $AllPermissions = $this->managers->getManagerOf('Users')->UserPermission();
+        foreach ($AllPermissions as $key => $value) {
+            $permissions[] = $value['access'];
+        }
+        $this->page->addVar('permission', $permissions);
     }
 
     public function executeDelete(\Library\HTTPRequest $request)

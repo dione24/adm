@@ -83,4 +83,37 @@ class EmployeManagerPDO extends \Library\Models\EmployeManager
         $requete->bindValue(':RefEmploye', $_POST['RefEmploye'], \PDO::PARAM_STR);
         $requete->execute();
     }
+
+    public function addService()
+    {
+        $requete = $this->dao->prepare("INSERT INTO tbleservice(name_service) VALUES (:name_service)");
+        $requete->bindValue(':name_service', $_POST['name_service'], \PDO::PARAM_STR);
+        $requete->execute();
+    }
+
+    public function getUniqueService($id)
+
+    {
+        $requete = $this->dao->prepare("SELECT * FROM tbleservice WHERE RefService=:RefService");
+        $requete->bindValue(':RefService', $id, \PDO::PARAM_STR);
+        $requete->execute();
+        $resultat = $requete->fetch();
+        return $resultat;
+    }
+
+
+    public function editService()
+    {
+        $requete = $this->dao->prepare("UPDATE tbleservice SET name_service=:name_service WHERE RefService=:RefService");
+        $requete->bindValue(':name_service', $_POST['name_service'], \PDO::PARAM_STR);
+        $requete->bindValue(':RefService', $_POST['RefService'], \PDO::PARAM_STR);
+        $requete->execute();
+    }
+
+    public function deleteService($id)
+    {
+        $requete = $this->dao->prepare("DELETE FROM tbleservice WHERE RefService=:RefService");
+        $requete->bindValue(':RefService', $id, \PDO::PARAM_STR);
+        $requete->execute();
+    }
 }

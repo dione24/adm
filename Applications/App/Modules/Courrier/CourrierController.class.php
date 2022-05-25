@@ -30,6 +30,12 @@ class CourrierController extends \Library\BackController
             $_SESSION['message']['text'] = 'Opération effectuée.';
             $this->app()->httpResponse()->redirect('/courrier/receptions');
         }
+        $permissions = array();
+        $AllPermissions = $this->managers->getManagerOf('Users')->UserPermission();
+        foreach ($AllPermissions as $key => $value) {
+            $permissions[] = $value['access'];
+        }
+        $this->page->addVar('permission', $permissions);
     }
 
     public function executeDeparts(\Library\HTTPRequest $request)
@@ -57,6 +63,12 @@ class CourrierController extends \Library\BackController
         $this->page->addVar("titles", "Voir un Courrier"); // Titre de la page
         $courrier = $this->managers->getManagerOf('Courrier')->getCourrierDeparts($request->getData('id'));
         $this->page->addVar("courrier", $courrier);
+        $permissions = array();
+        $AllPermissions = $this->managers->getManagerOf('Users')->UserPermission();
+        foreach ($AllPermissions as $key => $value) {
+            $permissions[] = $value['access'];
+        }
+        $this->page->addVar('permission', $permissions);
     }
 
     public function executeEditReceptions(\Library\HTTPRequest $request)
@@ -73,6 +85,12 @@ class CourrierController extends \Library\BackController
             $_SESSION['message']['text'] = 'Opération effectuée.';
             $this->app()->httpResponse()->redirect('/courrier/receptions');
         }
+        $permissions = array();
+        $AllPermissions = $this->managers->getManagerOf('Users')->UserPermission();
+        foreach ($AllPermissions as $key => $value) {
+            $permissions[] = $value['access'];
+        }
+        $this->page->addVar('permission', $permissions);
     }
 
     public function executeDeleteReceptions(\Library\HTTPRequest $request)
@@ -97,6 +115,12 @@ class CourrierController extends \Library\BackController
             $_SESSION['message']['text'] = 'Opération effectuée.';
             $this->app()->httpResponse()->redirect('/courrier/departs');
         }
+        $permissions = array();
+        $AllPermissions = $this->managers->getManagerOf('Users')->UserPermission();
+        foreach ($AllPermissions as $key => $value) {
+            $permissions[] = $value['access'];
+        }
+        $this->page->addVar('permission', $permissions);
     }
     public function executeDeleteDeparts(\Library\HTTPRequest $request)
     {
@@ -124,11 +148,22 @@ class CourrierController extends \Library\BackController
         } else {
             $this->app()->httpResponse()->redirect('/courrier/receptions');
         }
+        $permissions = array();
+        $AllPermissions = $this->managers->getManagerOf('Users')->UserPermission();
+        foreach ($AllPermissions as $key => $value) {
+            $permissions[] = $value['access'];
+        }
+        $this->page->addVar('permission', $permissions);
     }
     public function executeFile_view(\Library\HTTPRequest $request)
     {
         $this->page->addVar("titles", "Voir un fichier"); // Titre de la page
 
-
+        $permissions = array();
+        $AllPermissions = $this->managers->getManagerOf('Users')->UserPermission();
+        foreach ($AllPermissions as $key => $value) {
+            $permissions[] = $value['access'];
+        }
+        $this->page->addVar('permission', $permissions);
     }
 }
