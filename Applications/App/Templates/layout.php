@@ -1,5 +1,9 @@
 ﻿<!doctype html>
 <html lang="fr">
+<?php if (empty($permission)) {
+    $permission = [];
+} ?>
+}
 
 <head>
     <meta charset="utf-8" />
