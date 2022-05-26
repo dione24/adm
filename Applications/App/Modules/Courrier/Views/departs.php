@@ -9,7 +9,7 @@
             </div>
             <div class="card-body">
 
-                <h4 class="card-title">Liste des Courriers Arrivés</h4>
+                <h4 class="card-title">Liste des Courriers </h4>
                 <table id="datatable" class="table table-bordered dt-responsive ">
                     <thead>
                         <tr>
