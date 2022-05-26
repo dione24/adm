@@ -144,12 +144,11 @@ class UsersManagerPDO extends UsersManager
         $message = " Veuillez recevoir vos identifiants de connexion : \n\n" .
             "Login : " . $login . "\n" .
             "Mot de passe : " . $password . "\n\n" .
+            "http://adm.malicreances-sa.com" . "\n\n" .
             "Cordialement,\n" .
-            "L'équipe ADMN MALI CREANCES";
+            "L'équipe  MALI CREANCES";
         mail($to, $subject, $message, $headers);
     }
-
-
 
     public function addUsers()
     {
