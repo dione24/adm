@@ -3,7 +3,6 @@
 <?php if (empty($permission)) {
     $permission = [];
 } ?>
-}
 
 <head>
     <meta charset="utf-8" />
@@ -140,6 +139,13 @@
                                 </a>
                             </li>
                             <?php } ?>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="/user/profile"
+                                    id="topnav-dashboard" role="button">
+                                    <i class="fas fa-user-circle"></i><span key="t-dashboards"></span>
+                                </a>
+                            </li>
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle arrow-none" href="/logout" id="topnav-dashboard"

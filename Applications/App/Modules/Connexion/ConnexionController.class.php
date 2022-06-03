@@ -18,6 +18,7 @@ class ConnexionController extends \Library\BackController
                 $_SESSION['Nom'] = $User['nom'];
                 $_SESSION['Prenom'] = $User['prenom'];
                 $_SESSION['statut'] = $User['status'];
+                $_SESSION['email'] = $User['email'];
                 $this->app()->httpResponse()->redirect('/');
             }
         }
@@ -48,5 +49,24 @@ class ConnexionController extends \Library\BackController
         $this->app()->user()->setAuthenticated(false); //deconnexion de user
         $this->app()->user()->setFlash('Logout Successul');
         $this->app()->httpResponse()->redirect('/');
+    }
+
+    public function executeProfile(\Library\HTTPRequest $request)
+    {
+        $this->page->addVar("titles", "Profile");
+        if ($request->method() == "POST") {
+            $this->managers->getManagerOf("Users")->UpdatePassword($request);
+            $this->managers->getManagerOf("Comptabilite")->deleteFournisseur($request->getData('id'));
+            $_SESSION['message']['number'] = 2;
+            $_SESSION['message']['type'] = 'success';
+            $_SESSION['message']['text'] = 'Changement effectué.';
+            $this->app->httpResponse()->redirect("/user/profile");
+        }
+        $permissions = array();
+        $AllPermissions = $this->managers->getManagerOf('Users')->UserPermission();
+        foreach ($AllPermissions as $key => $value) {
+            $permissions[] = $value['access'];
+        }
+        $this->page->addVar('permission', $permissions);
     }
 }
