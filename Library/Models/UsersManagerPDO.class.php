@@ -141,9 +141,11 @@ class UsersManagerPDO extends UsersManager
 
     public function SendMail($to, $login, $password)
     {
-        $htmlcontent =  file_get_contents('mailtemplate.php');
+        $htmlcontent =  file_get_contents('mailtemplate.html');
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
-        $headers = 'From: adm.malicreances.com' . "\r\n" .
+        $headers .= 'From: adm.malicreances.com' . "\r\n" .
             'Reply-To: adm.malicreances.com' . "\r\n" .
             'X-Mailer: PHP/' . phpversion();
         $subject = "Identifiants de connexion | ADMN MALI CREANCES";
