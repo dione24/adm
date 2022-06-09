@@ -18,6 +18,10 @@ class UsersManagerPDO extends UsersManager
         }
     }
 
+
+
+
+
     public function UserPermission()
     {
         $requete = $this->dao->prepare("SELECT * FROM permissions WHERE RefUsers=:RefUsers");
@@ -204,5 +208,27 @@ class UsersManagerPDO extends UsersManager
         $requete = $this->dao->prepare('DELETE FROM users WHERE RefUsers=:id');
         $requete->bindValue(':id', $id, \PDO::PARAM_INT);
         $requete->execute();
+    }
+
+
+
+
+    public function UpdatePassword()
+    {
+        $requete = $this->dao->prepare("SELECT *  FROM users WHERE RefUsers=:RefUsers");
+        $requete->bindValue(':RefUsers', $_SESSION['RefUsers'], \PDO::PARAM_STR);
+        $requete->execute();
+        $resultat = $requete->fetch();
+        if (password_verify($_POST['password'], $resultat['password'])) {
+            if ($_POST['newpassword'] == $_POST['confirmpassword']) {
+                $newpassword = password_hash($_POST['newpassword'], PASSWORD_BCRYPT);
+                $query = $this->dao->prepare("UPDATE users SET password=:password WHERE RefUsers=:RefUsers");
+                $query->bindValue(':password', $newpassword, \PDO::PARAM_STR);
+                $query->bindValue(':RefUsers', $_SESSION['RefUsers'], \PDO::PARAM_STR);
+                $query->execute();
+            }
+        } else {
+            header('Location: /user/profile');
+        }
     }
 }

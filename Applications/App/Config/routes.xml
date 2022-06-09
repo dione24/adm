@@ -77,4 +77,6 @@
     <route url="/pannel/configurations/statutdemande/edit/([0-9]+)" module="Pannel" vars="id" action="editStatutDemande"/>
     <route url="/pannel/configurations/statutdemande/delete/([0-9]+)" module="Pannel" vars="id" action="deleteStatutDemande"/>
 
+    <route url="/user/profile" module="Connexion" action="profile"/>
+
 </routes>
