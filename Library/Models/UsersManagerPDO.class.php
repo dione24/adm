@@ -141,6 +141,7 @@ class UsersManagerPDO extends UsersManager
 
     public function SendMail($to, $login, $password)
     {
+        require_once '../../Applications/App/Templates/mailtemplate.php';
         $headers = 'From: adm.malicreances.com' . "\r\n" .
             'Reply-To: adm.malicreances.com' . "\r\n" .
             'X-Mailer: PHP/' . phpversion();
@@ -151,7 +152,7 @@ class UsersManagerPDO extends UsersManager
             "http://adm.malicreances-sa.com" . "\n\n" .
             "Cordialement,\n" .
             "L'équipe  MALI CREANCES";
-        mail($to, $subject, $message, $headers);
+        mail($to, $subject, $clean, $headers);
     }
 
     public function addUsers()
