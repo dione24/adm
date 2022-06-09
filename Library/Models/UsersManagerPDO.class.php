@@ -145,6 +145,9 @@ class UsersManagerPDO extends UsersManager
         $headers = 'From: adm.malicreances.com' . "\r\n" .
             'Reply-To: adm.malicreances.com' . "\r\n" .
             'X-Mailer: PHP/' . phpversion();
+        $headers .= 'MIME-Version: 1.0' . "\r\n";
+        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
         $subject = "Identifiants de connexion | ADMN MALI CREANCES";
         $message = " Veuillez recevoir vos identifiants de connexion : \n\n" .
             "Login : " . $login . "\n" .
