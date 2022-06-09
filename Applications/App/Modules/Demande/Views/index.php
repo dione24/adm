@@ -12,12 +12,13 @@
                  <i class="bx bxs-truck d-block check-nav-icon mt-4 mb-2"></i>
                  <p class="fw-bold mb-4">Nouvelle Demande</p>
              </a>
-
+             <?php if (in_array(25, $permission)) { ?>
              <a class="nav-link" id="v-pills-confir-tab" data-bs-toggle="pill" href="#v-pills-confir" role="tab"
                  aria-controls="v-pills-confir" aria-selected="false">
                  <i class="bx bx-badge-check d-block check-nav-icon mt-4 mb-2"></i>
                  <p class="fw-bold mb-4">Mes Traitements</p>
              </a>
+             <?php } ?>
          </div>
      </div>
      <div class="col-xl-10 col-sm-9">
@@ -125,6 +126,7 @@
                              </form>
                          </div>
                      </div>
+                     <?php if (in_array(25, $permission)) { ?>
                      <div class="tab-pane fade" id="v-pills-confir" role="tabpanel"
                          aria-labelledby="v-pills-confir-tab">
                          <div class="card shadow-none border mb-0">
@@ -148,8 +150,8 @@
                                                  </thead>
                                                  <tbody>
                                                      <?php foreach ($mesvalidation as $validations) {
-                                                            foreach ($validations['alldemande'] as $key => $validation) {
-                                                        ?>
+                                                                foreach ($validations['alldemande'] as $key => $validation) {
+                                                            ?>
                                                      <tr>
                                                          <td><?= $validation['date_demande']; ?></td>
                                                          <td><?= $validation['name_demande'];  ?>
@@ -179,7 +181,7 @@
                                                          </td>
                                                      </tr>
                                                      <?php }
-                                                        } ?>
+                                                            } ?>
                                                  </tbody>
                                              </table>
                                          </div>
@@ -188,6 +190,7 @@
                              </div>
                          </div>
                      </div>
+                     <?php } ?>
                  </div>
              </div>
              <div class="row mt-4">
