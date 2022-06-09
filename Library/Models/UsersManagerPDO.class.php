@@ -141,7 +141,7 @@ class UsersManagerPDO extends UsersManager
 
     public function SendMail($to, $login, $password)
     {
-        $from = "contact@malicreances-sa.com";
+        $from = "no-reply@malicreances-sa.com";
         require_once __DIR__ . '/../../Applications/App/Templates/mailtemplate.php';
         $headers  = 'MIME-Version: 1.0' . "\r\n";
         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
